@@ -484,7 +484,11 @@ const prizes = [
 		text-transform: uppercase;
 		color: #f2f2f8;
 	}
-	.hero-metrics span + span::before { content: ''; margin-right: 0; }
+	.hero-metrics span + span::before {
+		content: '/';
+		margin-right: 14px;
+		color: var(--red);
+	}
 	.hero-launch-line {
 		margin: 0;
 		display: inline-flex;
