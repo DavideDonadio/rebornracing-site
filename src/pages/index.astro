@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import hamVsVerImage from '../assets/imgs/hamvsver.jpg';
 
 const title       = 'Reborn Racing | Season 4';
 const description = 'Reborn Racing — Season 4 launches April 27th. 24 drivers, 12 circuits, €360 prize pool. The most competitive season yet.';
@@ -155,8 +156,8 @@ const prizes = [
 					deep understanding of energy deployment through every corner.
 				</p>
 				<div class="car-specs">
-					<div class="spec"><span class="spec-k">Platform</span><span class="spec-v">Assetto Corsa</span></div>
 					<div class="spec"><span class="spec-k">Class</span><span class="spec-v">Formula Hybrid</span></div>
+					<div class="spec"><span class="spec-k">Power</span><span class="spec-v">~ 1000 HP</span></div>
 					<div class="spec"><span class="spec-k">Creator</span><span class="spec-v">Race Sim Studio</span></div>
 					<div class="spec"><span class="spec-k">Setup</span><span class="spec-v">Fixed</span></div>
 					<div class="spec"><span class="spec-k">Drivetrain</span><span class="spec-v">Hybrid / RWD</span></div>
@@ -166,7 +167,7 @@ const prizes = [
 
 			<div class="car-visual reveal">
 				<img
-					src="https://www.goodwood.com/globalassets/.road--racing/race/modern/2021/3-march/f1-2021-mercedes-w12/mercedes-amg-f1-w12-e-performance-goodwood-02032021.jpg"
+					src={hamVsVerImage.src}
 					alt="Mercedes-AMG F1 W12 race car"
 					loading="lazy"
 					decoding="async"
@@ -693,14 +694,14 @@ const prizes = [
 	}
 	.spec-k {
 		font-family: var(--font-cond);
-		font-size: 12px;
+		font-size: 15px;
 		letter-spacing: 0.18em;
 		text-transform: uppercase;
 		color: var(--grey-mid);
 	}
 	.spec-v {
 		font-family: var(--font-cond);
-		font-size: 15px;
+		font-size: 18px;
 		font-weight: 600;
 		color: #ffffff;
 	}
@@ -767,10 +768,12 @@ const prizes = [
 	}
 	.cal-break span {
 		font-family: var(--font-cond);
-		font-size: 13px;
+		font-size: 15px;
+		font-weight: 700;
 		letter-spacing: 0.28em;
 		text-transform: uppercase;
-		color: var(--grey);
+		color: #ffd34d;
+		text-shadow: 0 0 10px rgba(255, 211, 77, 0.28);
 		display: flex;
 		align-items: center;
 		gap: 20px;
@@ -779,7 +782,7 @@ const prizes = [
 		content: '';
 		flex: 1;
 		height: 1px;
-		background: var(--border);
+		background: rgba(255, 211, 77, 0.75);
 	}
 
 	.cal-round {
