@@ -1,0 +1,167 @@
+---
+// Server status badge component
+// Checks ac.rebornracing.com:443 every 5 minutes
+---
+
+<a href="http://ac.rebornracing.com" target="_blank" rel="noopener noreferrer" class="server-status" id="serverStatus">
+	<div class="status-badge">
+		<div class="status-dot status-dot--loading"></div>
+		<span class="status-label">AC SERVER - </span>
+		<span class="status-text">Checking...</span>
+	</div>
+</a>
+
+<style>
+	.server-status {
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		text-decoration: none;
+	}
+
+	.status-badge {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		padding: 6px 12px;
+		border-radius: 4px;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		font-size: 14px;
+		font-weight: 500;
+		letter-spacing: 0.5px;
+		transition: all 0.3s ease;
+	}
+
+	.server-status:hover .status-badge {
+		background: rgba(255, 255, 255, 0.08);
+		border-color: rgba(255, 255, 255, 0.15);
+	}
+
+	.server-status.offline {
+		pointer-events: none;
+		opacity: 0.6;
+	}
+
+	.status-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		transition: background-color 0.3s ease;
+		box-shadow: 0 0 6px currentColor;
+		flex-shrink: 0;
+	}
+
+	.status-label {
+		color: var(--grey-mid);
+		white-space: nowrap;
+	}
+
+	.status-dot--loading {
+		background-color: #a4a4b4;
+		animation: pulse 1.5s ease-in-out infinite;
+	}
+
+	.status-dot--online {
+		background-color: #22c55e;
+		color: #22c55e;
+	}
+
+	.status-dot--offline {
+		background-color: #e8002d;
+		color: #e8002d;
+	}
+
+	.status-text {
+		text-transform: capitalize;
+		color: var(--grey-mid);
+		transition: color 0.3s ease;
+	}
+
+	.status-badge.online .status-text {
+		color: #22c55e;
+	}
+
+	.status-badge.offline .status-text {
+		color: #e8002d;
+	}
+
+	@keyframes pulse {
+		0%, 100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.5;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.status-dot {
+			width: 6px;
+			height: 6px;
+		}
+
+		.status-label {
+			display: none;
+		}
+
+		.status-badge {
+			padding: 6px 8px;
+		}
+	}
+</style>
+
+<script>
+	const SERVER_URL = 'http://ac.rebornracing.com:443';
+	const CHECK_INTERVAL = 5 * 60 * 1000; // 5 minutes
+	const TIMEOUT = 5000; // 5 second timeout
+
+	async function checkServerStatus() {
+		const serverStatus = document.querySelector('.server-status');
+		const statusBadge = document.querySelector('.status-badge');
+		const statusDot = document.querySelector('.status-dot');
+		const statusText = document.querySelector('.status-text');
+
+		if (!statusBadge) return;
+
+		try {
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), TIMEOUT);
+
+			const response = await fetch(SERVER_URL, {
+				method: 'HEAD',
+				signal: controller.signal,
+				mode: 'no-cors',
+			});
+
+			clearTimeout(timeoutId);
+
+			// Server is online
+			serverStatus.classList.remove('offline');
+			statusBadge.classList.remove('offline');
+			statusBadge.classList.add('online');
+			statusDot.classList.remove('status-dot--loading', 'status-dot--offline');
+			statusDot.classList.add('status-dot--online');
+			statusText.textContent = 'Online';
+		} catch (error) {
+			// Server is offline or unreachable
+			serverStatus.classList.add('offline');
+			statusBadge.classList.remove('online');
+			statusBadge.classList.add('offline');
+			statusDot.classList.remove('status-dot--loading', 'status-dot--online');
+			statusDot.classList.add('status-dot--offline');
+			statusText.textContent = 'Offline';
+		}
+	}
+
+	// Check immediately on load
+	checkServerStatus();
+
+	// Check every 5 minutes
+	const intervalId = setInterval(checkServerStatus, CHECK_INTERVAL);
+
+	// Cleanup on page unload
+	window.addEventListener('beforeunload', () => {
+		clearInterval(intervalId);
+	});
+</script>
