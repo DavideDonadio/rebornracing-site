@@ -128,15 +128,14 @@
 			const controller = new AbortController();
 			const timeoutId = setTimeout(() => controller.abort(), TIMEOUT);
 
-			// 1. Removed mode: 'no-cors'
+			// CHANGED: method is now 'GET'
 			const response = await fetch(SERVER_URL, {
-				method: 'HEAD',
+				method: 'GET',
 				signal: controller.signal
 			});
 
 			clearTimeout(timeoutId);
 
-			// 2. Explicitly check if the server responded with a success code (e.g., 200 OK)
 			if (!response.ok) {
 				throw new Error(`Server responded with status: ${response.status}`);
 			}
@@ -150,8 +149,8 @@
 			statusText.textContent = 'Online';
 
 		} catch (error) {
-			// Server is offline, unreachable, or returned a bad status code
-			console.log('Server status check failed:', error); // Helpful for debugging!
+			// Server is offline or unreachable
+			console.log('Server status check failed:', error);
 
 			serverStatus.classList.add('offline');
 			statusBadge.classList.remove('online');
