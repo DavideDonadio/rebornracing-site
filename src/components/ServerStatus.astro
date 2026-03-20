@@ -1,9 +1,9 @@
 ---
 // Server status badge component
-// Checks ac.rebornracing.com:443 every 5 minutes
+// Checks ac.rebornracing.com (port 443 SSL) every 5 minutes
 ---
 
-<a href="http://ac.rebornracing.com" target="_blank" rel="noopener noreferrer" class="server-status" id="serverStatus">
+<a href="https://ac.rebornracing.com" target="_blank" rel="noopener noreferrer" class="server-status" id="serverStatus">
 	<div class="status-badge">
 		<div class="status-dot status-dot--loading"></div>
 		<span class="status-label">AC SERVER - </span>
@@ -112,7 +112,7 @@
 </style>
 
 <script>
-	const SERVER_URL = 'http://ac.rebornracing.com:443';
+	const SERVER_URL = 'https://ac.rebornracing.com';
 	const CHECK_INTERVAL = 5 * 60 * 1000; // 5 minutes
 	const TIMEOUT = 5000; // 5 second timeout
 
@@ -128,13 +128,18 @@
 			const controller = new AbortController();
 			const timeoutId = setTimeout(() => controller.abort(), TIMEOUT);
 
+			// 1. Removed mode: 'no-cors'
 			const response = await fetch(SERVER_URL, {
 				method: 'HEAD',
-				signal: controller.signal,
-				mode: 'no-cors',
+				signal: controller.signal
 			});
 
 			clearTimeout(timeoutId);
+
+			// 2. Explicitly check if the server responded with a success code (e.g., 200 OK)
+			if (!response.ok) {
+				throw new Error(`Server responded with status: ${response.status}`);
+			}
 
 			// Server is online
 			serverStatus.classList.remove('offline');
@@ -143,8 +148,11 @@
 			statusDot.classList.remove('status-dot--loading', 'status-dot--offline');
 			statusDot.classList.add('status-dot--online');
 			statusText.textContent = 'Online';
+
 		} catch (error) {
-			// Server is offline or unreachable
+			// Server is offline, unreachable, or returned a bad status code
+			console.log('Server status check failed:', error); // Helpful for debugging!
+
 			serverStatus.classList.add('offline');
 			statusBadge.classList.remove('online');
 			statusBadge.classList.add('offline');
