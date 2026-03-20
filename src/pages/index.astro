@@ -1,11 +1,1073 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const title       = 'Reborn Racing | Season 4';
+const description = 'Reborn Racing — Season 4 launches April 27th. 24 drivers, 12 circuits, €360 prize pool. The most competitive season yet.';
+
+const stats = [
+	{ value: '268',   label: 'Races Hosted' },
+	{ value: '132',   label: 'Registered Drivers' },
+	{ value: '3',     label: 'Seasons Completed' },
+];
+
+const aboutFacts = [
+	{ label: 'Founded', value: 'May 2025' },
+	{ label: 'Platform', value: 'PC' },
+	{ label: 'Entry', value: 'Open To Everyone' },
+];
+
+const calendar = [
+	{ round: '01', date: 'Mon 27 Apr', flag: '🇧🇭', name: 'Bahrain International Circuit',        country: 'Sakhir, Bahrain',                 badge: 'opener' },
+	{ round: '02', date: 'Mon 12 May', flag: '🇮🇹', name: 'Autodromo Enzo e Dino Ferrari',        country: 'Imola, Italy',                    badge: '' },
+	{ round: '03', date: 'Mon 26 May', flag: '🇬🇧', name: 'Silverstone Circuit',                  country: 'Northamptonshire, UK',             badge: '' },
+	{ round: '04', date: 'Mon 09 Jun', flag: '🇦🇹', name: 'Red Bull Ring',                        country: 'Spielberg, Austria',               badge: '' },
+	{ round: '05', date: 'Mon 23 Jun', flag: '🇭🇺', name: 'Hungaroring',                          country: 'Mogyoród, Hungary',                badge: '' },
+	{ round: '06', date: 'Mon 07 Jul', flag: '🇧🇪', name: 'Circuit de Spa-Francorchamps',         country: 'Stavelot, Belgium',                badge: '' },
+	{ round: '07', date: 'Mon 21 Jul', flag: '🇮🇹', name: 'Autodromo Nazionale Monza',            country: 'Monza, Italy',                     badge: '' },
+	{ round: '—',  date: 'August',     flag: '',    name: 'Summer Break',                         country: '',                                badge: 'break' },
+	{ round: '08', date: 'Mon 15 Sep', flag: '🇺🇸', name: 'Circuit of the Americas',              country: 'Austin, Texas, USA',               badge: '' },
+	{ round: '09', date: 'Mon 29 Sep', flag: '🇧🇷', name: 'Autodromo José Carlos Pace',           country: 'Interlagos, Brazil',               badge: '' },
+	{ round: '10', date: 'Mon 13 Oct', flag: '🇯🇵', name: 'Suzuka International Racing Course',   country: 'Suzuka, Japan',                    badge: '' },
+	{ round: '11', date: 'Mon 27 Oct', flag: '🇲🇽', name: 'Autodromo Hermanos Rodríguez',         country: 'Mexico City, Mexico',              badge: '' },
+	{ round: '12', date: 'Mon 10 Nov', flag: '🇦🇪', name: 'Yas Marina Circuit',                   country: 'Abu Dhabi, UAE',                   badge: 'finale' },
+];
+
+const prizes = [
+	{ pos: '1st', amount: '120', highlight: true },
+	{ pos: '2nd', amount: '80',  highlight: false },
+	{ pos: '3rd', amount: '60',  highlight: false },
+	{ pos: '4th', amount: '40',  highlight: false },
+	{ pos: '5th', amount: '25',  highlight: false },
+	{ pos: 'Fair Play', amount: '35', highlight: false },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title={title} description={description}>
+
+	<!-- ══════════════════════════ NAV ══════════════════════════ -->
+	<nav class="nav">
+		<div class="nav-inner">
+			<a href="/" class="nav-brand">
+				<span class="nav-brand-mark">RR</span>
+				<span class="nav-brand-name">Reborn Racing</span>
+			</a>
+			<div class="nav-links">
+				<a href="#about">About</a>
+				<a href="#calendar">Calendar</a>
+				<a href="#prizes">Prizes</a>
+				<a href="#join" class="nav-cta">Join Season 4 →</a>
+			</div>
+		</div>
+	</nav>
+
+	<!-- ══════════════════════════ HERO ══════════════════════════ -->
+	<section class="hero">
+		<div class="hero-bg" aria-hidden="true">
+			<div class="hero-glow"></div>
+			<div class="hero-stripe"></div>
+			<!-- Speed lines -->
+			<div class="hero-lines"></div>
+		</div>
+
+		<div class="hero-content wrap">
+			<p class="hero-eyebrow label">Assetto Corsa · Sim Racing League · Season 4</p>
+
+			<h1 class="hero-title">
+				<span class="hero-title-reborn">Reborn</span>
+				<span class="hero-title-racing">Racing</span>
+			</h1>
+
+			<p class="hero-sub">
+				Twenty-four drivers. Twelve circuits. One championship.<br />
+				Season 4 launches <strong>April 27th</strong>.
+			</p>
+
+			<div class="hero-actions">
+				<a href="#join"     class="btn-primary">Join the Grid</a>
+				<a href="#calendar" class="btn-ghost">View Calendar</a>
+			</div>
+		</div>
+
+		<!-- Scroll cue -->
+		<div class="scroll-cue" aria-hidden="true">
+			<span>Scroll</span>
+			<div class="scroll-line"></div>
+		</div>
+	</section>
+
+	<!-- ══════════════════════════ STATS STRIP ══════════════════════════ -->
+	<div class="stats-strip">
+		{stats.map((s) => (
+			<div class="stat-item">
+				<div class="stat-value js-counter" data-target={s.value}>{s.value}</div>
+				<div class="stat-label">{s.label}</div>
+			</div>
+		))}
+	</div>
+
+	<!-- ══════════════════════════ ABOUT ══════════════════════════ -->
+	<section class="about" id="about">
+		<div class="wrap">
+			<div class="about-header reveal">
+				<p class="label">Who We Are</p>
+				<h2 class="section-title">Built for competition,<br/>driven by community</h2>
+			</div>
+
+			<div class="about-grid reveal">
+				<div class="about-story">
+					<p>
+						Founded in May 2025nev, Reborn Racing is dedicated to delivering a competitive yet
+						enjoyable sim racing experience on PC, welcoming drivers of all skill levels.
+						The league hosts a seasonal championship open to anyone.
+					</p>
+				</div>
+				<div class="about-facts">
+					{aboutFacts.map((fact) => (
+						<article class="about-fact">
+							<p class="about-fact-label">{fact.label}</p>
+							<p class="about-fact-value">{fact.value}</p>
+						</article>
+					))}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══════════════════════════ CAR SECTION ══════════════════════════ -->
+	<section class="car-section">
+		<div class="wrap car-inner">
+			<div class="car-info reveal">
+				<p class="label car-tag">Official Car · Season 4</p>
+				<h2 class="car-name">RSS Formula<br/>Hybrid 2021</h2>
+				<p class="car-desc">
+					Modeled on the 2021 F1 hybrid generation. Demands precision, racecraft, and a
+					deep understanding of energy deployment through every corner.
+				</p>
+				<div class="car-specs">
+					<div class="spec"><span class="spec-k">Platform</span><span class="spec-v">Assetto Corsa</span></div>
+					<div class="spec"><span class="spec-k">Class</span><span class="spec-v">Formula Hybrid</span></div>
+					<div class="spec"><span class="spec-k">Creator</span><span class="spec-v">Race Sim Studio</span></div>
+					<div class="spec"><span class="spec-k">Setup</span><span class="spec-v">Fixed</span></div>
+					<div class="spec"><span class="spec-k">Drivetrain</span><span class="spec-v">Hybrid / RWD</span></div>
+					<div class="spec"><span class="spec-k">Year</span><span class="spec-v">2021</span></div>
+				</div>
+			</div>
+
+			<div class="car-visual reveal">
+				<img
+					src="https://www.goodwood.com/globalassets/.road--racing/race/modern/2021/3-march/f1-2021-mercedes-w12/mercedes-amg-f1-w12-e-performance-goodwood-02032021.jpg"
+					alt="Mercedes-AMG F1 W12 race car"
+					loading="lazy"
+					decoding="async"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══════════════════════════ CALENDAR ══════════════════════════ -->
+	<section class="calendar-section" id="calendar">
+		<div class="wrap">
+			<div class="calendar-head reveal">
+				<p class="label">Season 4 · 2026</p>
+				<h2 class="section-title">Race Calendar</h2>
+				<p class="calendar-sub">Biweekly Mondays · 12 rounds · 1-month summer break in August</p>
+			</div>
+
+			<div class="cal-table reveal">
+				{calendar.map((r) =>
+					r.badge === 'break' ? (
+						<div class="cal-break">
+							<span>☀&ensp;Summer Break — August</span>
+						</div>
+					) : (
+						<div class={`cal-row ${r.badge ? `cal-row--${r.badge}` : ''}`}>
+							<div class="cal-round">{r.round}</div>
+							<div class="cal-date">{r.date}</div>
+							<div class="cal-flag">{r.flag}</div>
+							<div class="cal-circuit">
+								<span class="cal-name">{r.name}</span>
+								<span class="cal-country">{r.country}</span>
+							</div>
+							{r.badge === 'opener' && <span class="badge badge--red">Season Opener</span>}
+							{r.badge === 'finale' && <span class="badge badge--gold">Season Finale</span>}
+							{!r.badge && <span class="badge badge--grey">Confirmed</span>}
+						</div>
+					)
+				)}
+			</div>
+
+			<p class="cal-note">* All races take place on Monday evenings. Exact start times to be announced.</p>
+		</div>
+	</section>
+
+	<!-- ══════════════════════════ PRIZES ══════════════════════════ -->
+	<section class="prizes-section" id="prizes">
+		<div class="wrap">
+			<div class="prizes-head reveal">
+				<p class="label">Championship Rewards</p>
+				<h2 class="section-title">Prize Pool</h2>
+			</div>
+
+			<div class="prizes-grid reveal">
+				{prizes.map((p) => (
+					<div class={`prize-card ${p.highlight ? 'prize-card--gold' : ''}`}>
+						<div class="prize-pos">{p.pos}</div>
+						<div class="prize-amount">€{p.amount}</div>
+					</div>
+				))}
+			</div>
+
+			<div class="prize-total reveal">
+				<span class="prize-total-label">Total Prize Pool</span>
+				<span class="prize-total-value">€ 360</span>
+			</div>
+
+			<div class="prize-note reveal">
+				<p class="prize-note-title">100% Prize Fund Policy</p>
+				<p><strong>Every euro of entry fees goes straight to the prize pool.</strong></p>
+				<p>Entry fee is €15 per driver, and with 24 drivers the full €360 is paid back out as rewards. No admin cuts. No hidden deductions.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══════════════════════════ JOIN CTA ══════════════════════════ -->
+	<section class="join-section" id="join">
+		<div class="join-bg" aria-hidden="true"></div>
+		<div class="wrap join-inner">
+			<div class="reveal">
+				<p class="label">Season 4 · Open Registration</p>
+				<h2 class="join-title">Bring your pace.<br/>Earn your place.</h2>
+				<p class="join-sub">
+					24 seats. Applications are reviewed to keep the grid balanced and racing standards high. Entry fee secures your spot and feeds the prize pool.
+				</p>
+				<div class="join-actions">
+					<a href="#" class="btn-primary btn-large">Apply for Season 4</a>
+					<a href="#" class="btn-ghost">Join our Discord</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+	<footer class="footer">
+		<div class="wrap footer-inner">
+			<div class="footer-brand">
+				Reborn <span>Racing</span>
+			</div>
+			<p class="footer-meta">Season 4 · 2026 · Assetto Corsa League</p>
+		</div>
+	</footer>
+
 </Layout>
+
+<style>
+	/* ── Wrap ── */
+	.wrap {
+		max-width: 1160px;
+		margin: 0 auto;
+		padding: 0 40px;
+		position: relative;
+		z-index: 1;
+	}
+
+	/* ── Section title ── */
+	.section-title {
+		font-family: var(--font-display);
+		font-size: clamp(56px, 7.5vw, 100px);
+		line-height: 0.93;
+		letter-spacing: 0.02em;
+		color: var(--white);
+		margin-top: 16px;
+	}
+
+	/* ── Buttons ── */
+	.btn-primary {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		background: var(--red);
+		color: #fff;
+		font-family: var(--font-cond);
+		font-weight: 700;
+		font-size: 14px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		padding: 18px 40px;
+		border: 2px solid var(--red);
+		transition: background 0.2s, border-color 0.2s;
+		position: relative;
+		overflow: hidden;
+	}
+	.btn-primary:hover { background: #c5001f; border-color: #c5001f; }
+
+	.btn-ghost {
+		display: inline-flex;
+		align-items: center;
+		color: var(--white);
+		font-family: var(--font-cond);
+		font-weight: 500;
+		font-size: 14px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		padding: 18px 40px;
+		border: 2px solid var(--border-mid);
+		transition: color 0.2s, border-color 0.2s;
+	}
+	.btn-ghost:hover { border-color: rgba(255,255,255,0.35); }
+
+	.btn-large { padding: 22px 52px; font-size: 15px; }
+
+	/* ════════════════ NAV ════════════════ */
+	.nav {
+		position: fixed;
+		top: 0; left: 0; right: 0;
+		z-index: 100;
+		background: rgba(8, 8, 9, 0.94);
+		border-bottom: 1px solid rgba(255,255,255,0.10);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+	}
+	.nav-inner {
+		max-width: 1160px;
+		margin: 0 auto;
+		padding: 0 40px;
+		height: 76px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.nav-brand {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+	}
+	.nav-brand-mark {
+		width: 40px; height: 40px;
+		background: var(--red);
+		display: grid;
+		place-items: center;
+		font-family: var(--font-display);
+		font-size: 18px;
+		color: #fff;
+		letter-spacing: 0.05em;
+		flex-shrink: 0;
+	}
+	.nav-brand-name {
+		font-family: var(--font-display);
+		font-size: 28px;
+		letter-spacing: 0.06em;
+		color: #ffffff;
+	}
+	.nav-links {
+		display: flex;
+		align-items: center;
+		gap: 40px;
+	}
+	.nav-links a {
+		font-family: var(--font-cond);
+		font-size: 15px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: #d8d8e8;
+		transition: color 0.2s;
+	}
+	.nav-links a:hover { color: #ffffff; }
+	.nav-cta {
+		background: var(--red) !important;
+		color: #fff !important;
+		padding: 10px 24px !important;
+		font-size: 15px !important;
+		font-weight: 700 !important;
+		letter-spacing: 0.16em !important;
+	}
+	.nav-cta:hover { background: #c5001f !important; }
+
+	/* ════════════════ HERO ════════════════ */
+	.hero {
+		position: relative;
+		min-height: 100svh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding-top: 76px; /* nav height */
+		padding-bottom: 0;
+		overflow: hidden;
+	}
+	.hero-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+	.hero-glow {
+		position: absolute;
+		inset: 0;
+		background:
+			radial-gradient(ellipse 65% 55% at 75% 35%, rgba(232,0,45,0.15) 0%, transparent 70%),
+			radial-gradient(ellipse 40% 60% at 5% 85%,  rgba(232,0,45,0.07) 0%, transparent 60%),
+			linear-gradient(160deg, #0d0d10 0%, #080809 100%);
+	}
+	.hero-stripe {
+		position: absolute;
+		top: 0; bottom: 0;
+		right: 18%;
+		width: 3px;
+		background: linear-gradient(to bottom, transparent, rgba(232,0,45,0.45) 30%, rgba(232,0,45,0.45) 70%, transparent);
+	}
+	.hero-lines {
+		position: absolute; inset: 0;
+		background-image: repeating-linear-gradient(
+			97deg,
+			transparent,
+			transparent 100px,
+			rgba(255,255,255,0.015) 101px,
+			rgba(255,255,255,0.015) 102px
+		);
+	}
+
+	.hero-content {
+		padding-bottom: 0;
+	}
+	.hero-eyebrow {
+		margin-bottom: 28px;
+		opacity: 0;
+		animation: fadeUp 0.7s 0.2s ease forwards;
+	}
+	.hero-title {
+		font-family: var(--font-display);
+		line-height: 0.87;
+		letter-spacing: 0.01em;
+		opacity: 0;
+		animation: fadeUp 0.8s 0.4s ease forwards;
+	}
+	.hero-title-reborn {
+		display: block;
+		font-size: clamp(96px, 15vw, 210px);
+		color: #ffffff;
+	}
+	.hero-title-racing {
+		display: block;
+		font-size: clamp(96px, 15vw, 210px);
+		-webkit-text-stroke: 2.5px var(--red);
+		color: transparent;
+	}
+	.hero-sub {
+		margin-top: 36px;
+		font-size: clamp(16px, 1.8vw, 20px);
+		font-weight: 300;
+		color: #d8d8e8;
+		line-height: 1.7;
+		max-width: 500px;
+		opacity: 0;
+		animation: fadeUp 0.8s 0.6s ease forwards;
+	}
+	.hero-sub strong { color: #ffffff; font-weight: 600; }
+
+	.hero-actions {
+		margin-top: 44px;
+		display: flex;
+		gap: 16px;
+		flex-wrap: wrap;
+		opacity: 0;
+		animation: fadeUp 0.8s 0.8s ease forwards;
+	}
+
+	.scroll-cue {
+		position: absolute;
+		bottom: 56px; right: 56px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
+		opacity: 0;
+		animation: fadeIn 1s 1.6s ease forwards;
+	}
+	.scroll-cue span {
+		font-family: var(--font-cond);
+		font-size: 15px;
+		font-weight: 700;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		color: var(--grey-light);
+		writing-mode: vertical-rl;
+	}
+	.scroll-line {
+		width: 3px;
+		height: 120px;
+		background: linear-gradient(to bottom, var(--grey-light), transparent);
+		animation: scrollPulse 2.2s 2s ease-in-out infinite;
+	}
+
+	/* ════════════════ STATS STRIP ════════════════ */
+	.stats-strip {
+		position: relative; z-index: 1;
+		display: grid;
+		grid-template-columns: 1fr;
+		max-width: 1160px;
+		margin: 0 auto;
+		border-top: 1px solid var(--border);
+		border-bottom: 1px solid var(--border);
+		background: transparent;
+	}
+	.stat-item {
+		padding: 34px 40px;
+		position: relative;
+		overflow: hidden;
+		text-align: center;
+		background: transparent;
+	}
+	.stat-item + .stat-item { border-top: 1px solid var(--border); }
+	.stat-value {
+		font-family: var(--font-display);
+		font-size: clamp(52px, 5vw, 76px);
+		line-height: 1;
+		color: #ffffff;
+	}
+	.stat-label {
+		font-family: var(--font-cond);
+		font-size: 13px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--grey-mid);
+		margin-top: 10px;
+	}
+
+	/* ════════════════ ABOUT ════════════════ */
+	.hero,
+	.about,
+	.car-section,
+	.calendar-section,
+	.prizes-section,
+	.join-section,
+	.footer {
+		margin-inline: clamp(12px, 2.4vw, 28px);
+	}
+
+	.about {
+		padding: 120px 0;
+		background: var(--bg);
+	}
+	.about-header { margin-bottom: 64px; }
+
+	.about-grid {
+		display: grid;
+		grid-template-columns: 1.25fr 1fr;
+		gap: 28px;
+		align-items: stretch;
+	}
+
+	.about-story {
+		padding: 48px;
+		background: var(--surface);
+		border: 1px solid var(--border);
+	}
+
+	.about-story p {
+		font-size: clamp(18px, 2.3vw, 24px);
+		line-height: 1.7;
+		color: #d2d2e3;
+		max-width: 44ch;
+	}
+
+	.about-facts {
+		display: grid;
+		gap: 1px;
+		background: var(--border);
+		border: 1px solid var(--border);
+	}
+	.about-fact {
+		padding: 28px 30px;
+		background: var(--surface);
+		transition: background 0.25s;
+	}
+	.about-fact:hover { background: var(--surface2); }
+	.about-fact-label {
+		margin: 0;
+		font-family: var(--font-cond);
+		font-size: 16px;
+		font-weight: 700;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: var(--red);
+	}
+	.about-fact-value {
+		margin: 10px 0 0;
+		font-family: var(--font-cond);
+		font-size: 22px;
+		font-weight: 600;
+		letter-spacing: 0.03em;
+		color: #ffffff;
+	}
+
+	/* ════════════════ CAR ════════════════ */
+	.car-section {
+		background: var(--surface);
+		border-top: 1px solid var(--border);
+		border-bottom: 1px solid var(--border);
+		padding: 100px 0;
+	}
+	.car-inner {
+		display: grid;
+		grid-template-columns: 1fr 1.1fr;
+		gap: 80px;
+		align-items: center;
+	}
+	.car-tag {
+		margin-bottom: 20px;
+	}
+	.car-name {
+		font-family: var(--font-display);
+		font-size: clamp(48px, 5.5vw, 72px);
+		line-height: 1;
+		margin-bottom: 22px;
+	}
+	.car-desc {
+		font-size: 17px;
+		color: #c4c4d4;
+		line-height: 1.8;
+		margin-bottom: 36px;
+	}
+	.car-specs {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1px;
+		background: var(--border);
+		border: 1px solid var(--border);
+	}
+	.spec {
+		background: var(--surface2);
+		padding: 14px 18px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.spec-k {
+		font-family: var(--font-cond);
+		font-size: 12px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--grey-mid);
+	}
+	.spec-v {
+		font-family: var(--font-cond);
+		font-size: 15px;
+		font-weight: 600;
+		color: #ffffff;
+	}
+	.car-visual {
+		background: var(--surface2);
+		border: 1px solid var(--border);
+		padding: 0;
+		display: block;
+		position: relative;
+		overflow: hidden;
+	}
+	.car-visual::before {
+		content: '';
+		position: absolute; inset: 0;
+		background: radial-gradient(ellipse at center, rgba(232,0,45,0.07) 0%, transparent 70%);
+	}
+	.car-visual img {
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+		position: relative;
+		z-index: 1;
+		border: 0;
+	}
+
+	/* ════════════════ CALENDAR ════════════════ */
+	.calendar-section {
+		padding: 120px 0;
+		background: var(--bg);
+	}
+	.calendar-head { margin-bottom: 56px; }
+	.calendar-sub {
+		margin-top: 18px;
+		font-family: var(--font-cond);
+		font-size: 15px;
+		letter-spacing: 0.12em;
+		color: var(--grey-mid);
+	}
+
+	.cal-table {
+		border: 1px solid var(--border);
+		background: var(--border); /* gap color */
+		display: flex;
+		flex-direction: column;
+		gap: 1px;
+	}
+	.cal-row {
+		background: var(--surface);
+		display: grid;
+		grid-template-columns: 56px 136px 44px 1fr auto;
+		gap: 0 18px;
+		align-items: center;
+		padding: 16px 24px;
+		border-left: 3px solid transparent;
+		transition: background 0.2s, border-color 0.2s;
+	}
+	.cal-row:hover { background: var(--surface2); }
+	.cal-row--opener { border-left-color: var(--red); }
+	.cal-row--finale { border-left-color: var(--gold); }
+
+	.cal-break {
+		background: var(--bg);
+		padding: 14px 24px;
+	}
+	.cal-break span {
+		font-family: var(--font-cond);
+		font-size: 13px;
+		letter-spacing: 0.28em;
+		text-transform: uppercase;
+		color: var(--grey);
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+	.cal-break span::before, .cal-break span::after {
+		content: '';
+		flex: 1;
+		height: 1px;
+		background: var(--border);
+	}
+
+	.cal-round {
+		font-family: var(--font-display);
+		font-size: 24px;
+		color: var(--grey-mid);
+	}
+	.cal-date {
+		font-family: var(--font-cond);
+		font-size: 17px;
+		color: #c4c4d4;
+		letter-spacing: 0.04em;
+	}
+	.cal-flag { font-size: 30px; }
+	.cal-name {
+		display: block;
+		font-family: var(--font-cond);
+		font-size: 20px;
+		font-weight: 600;
+		color: #ffffff;
+		letter-spacing: 0.02em;
+	}
+	.cal-country {
+		display: block;
+		font-size: 15px;
+		color: var(--grey-mid);
+		letter-spacing: 0.06em;
+		margin-top: 3px;
+	}
+
+	.badge {
+		font-family: var(--font-cond);
+		font-size: 13px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		padding: 4px 12px;
+		border: 1px solid;
+		white-space: nowrap;
+	}
+	.badge--red  { color: var(--red);  border-color: var(--red-line);              background: var(--red-dim); font-weight: 700; }
+	.badge--gold { color: var(--gold); border-color: rgba(196,152,38,0.35);        background: var(--gold-dim); font-weight: 700; }
+	.badge--grey { color: var(--grey-mid); border-color: rgba(255,255,255,0.14); background: transparent; font-weight: 700; }
+
+	.cal-note {
+		margin-top: 18px;
+		font-family: var(--font-cond);
+		font-size: 13px;
+		letter-spacing: 0.1em;
+		color: var(--grey);
+	}
+
+	/* ════════════════ PRIZES ════════════════ */
+	.prizes-section {
+		padding: 120px 0;
+		background: var(--surface);
+		border-top: 1px solid var(--border);
+	}
+	.prizes-head { margin-bottom: 56px; }
+
+	.prizes-grid {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 1px;
+		background: var(--border);
+		border: 1px solid var(--border);
+	}
+	.prize-card {
+		background: var(--surface2);
+		padding: 36px 24px;
+		transition: background 0.2s;
+		position: relative;
+		overflow: hidden;
+	}
+	.prize-card:hover { background: #1c1c24; }
+	.prize-card--gold { background: var(--gold-dim); }
+	.prize-card--gold:hover { background: rgba(196,152,38,0.18); }
+	.prize-pos {
+		font-family: var(--font-cond);
+		font-size: 13px;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: var(--grey-mid);
+		margin-bottom: 16px;
+	}
+	.prize-card--gold .prize-pos { color: var(--gold); }
+	.prize-amount {
+		font-family: var(--font-display);
+		font-size: clamp(40px, 3.5vw, 52px);
+		line-height: 1;
+		color: #ffffff;
+	}
+	.prize-card--gold .prize-amount { color: var(--gold); }
+
+	.prize-total {
+		background: var(--red);
+		padding: 28px 36px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 20px;
+	}
+	.prize-total-label {
+		font-family: var(--font-cond);
+		font-size: 17px;
+		font-weight: 700;
+		letter-spacing: 0.25em;
+		text-transform: uppercase;
+		color: rgba(255,255,255,0.85);
+	}
+	.prize-total-value {
+		font-family: var(--font-display);
+		font-size: 48px;
+		color: #fff;
+	}
+
+	.prize-note {
+		margin-top: 24px;
+		padding: 28px 32px;
+		background: linear-gradient(110deg, rgba(232, 0, 45, 0.16), rgba(232, 0, 45, 0.04));
+		border: 1px solid var(--red-line);
+	}
+	.prize-note .prize-note-title {
+		font-family: var(--font-cond);
+		font-size: 18px;
+		font-weight: 700;
+		letter-spacing: 0.24em;
+		text-transform: uppercase;
+		color: #61e58a;
+		text-align: center;
+		margin-bottom: 12px;
+	}
+	.prize-note p {
+		font-size: 16px;
+		color: #e0e0ec;
+		line-height: 1.65;
+	}
+	.prize-note strong { color: #ffffff; font-weight: 700; }
+
+	/* ════════════════ JOIN CTA ════════════════ */
+	.join-section {
+		position: relative;
+		padding: 130px 0;
+		overflow: hidden;
+		background: var(--bg);
+		border-top: 1px solid var(--border);
+	}
+	.join-bg {
+		position: absolute; inset: 0;
+		background:
+			radial-gradient(ellipse 70% 80% at 90% 50%, rgba(232,0,45,0.1) 0%, transparent 65%),
+			radial-gradient(ellipse 40% 50% at 10% 20%, rgba(232,0,45,0.05) 0%, transparent 60%);
+	}
+	.join-inner { max-width: 700px; }
+	.join-title {
+		font-family: var(--font-display);
+		font-size: clamp(60px, 8vw, 104px);
+		line-height: 0.92;
+		letter-spacing: 0.02em;
+		margin-top: 18px;
+		margin-bottom: 28px;
+	}
+	.join-sub {
+		font-size: clamp(16px, 1.6vw, 19px);
+		color: #c4c4d4;
+		line-height: 1.75;
+		max-width: 52ch;
+		margin-bottom: 52px;
+	}
+	.join-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+	/* ════════════════ FOOTER ════════════════ */
+	.footer {
+		background: var(--surface);
+		border-top: 1px solid var(--border);
+		padding: 44px 0;
+		position: relative; z-index: 1;
+	}
+	.footer-inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.footer-brand {
+		font-family: var(--font-display);
+		font-size: 28px;
+		letter-spacing: 0.04em;
+	}
+	.footer-brand span { color: var(--red); }
+	.footer-meta {
+		font-family: var(--font-cond);
+		font-size: 11px;
+		letter-spacing: 0.16em;
+		color: var(--grey);
+	}
+
+	/* ════════════════ ANIMATIONS ════════════════ */
+	@keyframes fadeUp {
+		from { opacity: 0; transform: translateY(22px); }
+		to   { opacity: 1; transform: translateY(0); }
+	}
+	@keyframes fadeIn {
+		from { opacity: 0; } to { opacity: 1; }
+	}
+	@keyframes scrollPulse {
+		0%, 100% { opacity: 0.3; }
+		50%       { opacity: 1; }
+	}
+
+	/* ════════════════ RESPONSIVE ════════════════ */
+	@media (max-width: 1024px) {
+		.car-inner { grid-template-columns: 1fr; gap: 48px; }
+		.about-grid { grid-template-columns: 1fr; }
+		.prizes-grid { grid-template-columns: repeat(3, 1fr); }
+	}
+
+	@media (max-width: 768px) {
+		.wrap { padding: 0 24px; }
+		.nav-inner { padding: 0 24px; height: 68px; }
+		.hero,
+		.about,
+		.car-section,
+		.calendar-section,
+		.prizes-section,
+		.join-section,
+		.footer { margin-inline: 10px; }
+		.nav-links a:not(.nav-cta) { display: none; }
+		.cal-row { grid-template-columns: 40px 1fr auto; gap: 0 12px; padding: 18px 20px; }
+		.cal-date { display: none; }
+		.cal-flag { display: none; }
+		.prizes-grid { grid-template-columns: repeat(2, 1fr); }
+		.footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+		.scroll-cue { display: none; }
+	}
+
+	@media (max-width: 480px) {
+		.stat-item { padding: 28px 20px; }
+		.prizes-grid { grid-template-columns: 1fr 1fr; }
+		.hero-actions { flex-direction: column; align-items: flex-start; }
+		.join-actions { flex-direction: column; align-items: flex-start; }
+	}
+</style>
+
+<script>
+	// Scroll-reveal
+	const reveals = document.querySelectorAll('.reveal');
+	const io = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((e, i) => {
+				if (e.isIntersecting) {
+					setTimeout(() => e.target.classList.add('in'), i * 90);
+					io.unobserve(e.target);
+				}
+			});
+		},
+		{ threshold: 0.08 }
+	);
+	reveals.forEach((el) => io.observe(el));
+
+	// Counter effect for stats values
+	const counters = document.querySelectorAll('.js-counter');
+	const counterFrames = new WeakMap();
+	const parseCounterTarget = (rawValue) => {
+		const cleaned = rawValue.replace(/,/g, '');
+		const match = cleaned.match(/-?\d+(\.\d+)?/);
+		if (!match) {
+			return null;
+		}
+		const numberText = match[0];
+		const startIndex = match.index ?? 0;
+		return {
+			number: Number(numberText),
+			prefix: cleaned.slice(0, startIndex),
+			suffix: cleaned.slice(startIndex + numberText.length),
+			decimals: numberText.includes('.') ? numberText.split('.')[1].length : 0
+		};
+	};
+
+	const animateCounter = (element, delay = 0) => {
+		const targetText = element.dataset.target ?? element.textContent?.trim() ?? '';
+		const parsed = parseCounterTarget(targetText);
+		if (!parsed) {
+			return;
+		}
+
+		const existingFrame = counterFrames.get(element);
+		if (existingFrame) {
+			cancelAnimationFrame(existingFrame);
+		}
+
+		element.textContent = `${parsed.prefix}0${parsed.suffix}`;
+		const duration = 1400;
+		const startTime = performance.now() + delay;
+
+		const tick = (now) => {
+			if (now < startTime) {
+				requestAnimationFrame(tick);
+				return;
+			}
+			const progress = Math.min((now - startTime) / duration, 1);
+			const eased = 1 - Math.pow(1 - progress, 3);
+			const currentValue = parsed.number * eased;
+			const displayed = parsed.decimals > 0
+				? currentValue.toFixed(parsed.decimals)
+				: Math.round(currentValue).toLocaleString('en-US');
+
+			element.textContent = `${parsed.prefix}${displayed}${parsed.suffix}`;
+			if (progress < 1) {
+				const nextFrame = requestAnimationFrame(tick);
+				counterFrames.set(element, nextFrame);
+			} else {
+				element.textContent = targetText;
+				counterFrames.delete(element);
+			}
+		};
+
+		const firstFrame = requestAnimationFrame(tick);
+		counterFrames.set(element, firstFrame);
+	};
+
+	let statsInView = false;
+	const statsObserver = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					if (!statsInView) {
+						counters.forEach((counter, index) => animateCounter(counter, index * 140));
+						statsInView = true;
+					}
+					return;
+				}
+
+				statsInView = false;
+			});
+		},
+		{ threshold: 0.35 }
+	);
+
+	const statsStrip = document.querySelector('.stats-strip');
+	if (statsStrip && counters.length > 0) {
+		statsObserver.observe(statsStrip);
+	}
+</script>
