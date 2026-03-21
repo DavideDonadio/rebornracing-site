@@ -130,8 +130,8 @@ const calendar = [
 
 const format = [
 	{ phase: "Driver Briefing", time: "5–10 min", start: "21:00" },
-	{ phase: "Qualifying", time: "15 min", start: "—" },
-	{ phase: "Race", time: "45 min", start: "—" },
+	{ phase: "Qualifying", time: "15 min", start: "21:10 ca." },
+	{ phase: "Race", time: "45 min", start: "21:25 ca." },
 ];
 
 const raceRounds = calendar.filter((r) => r.badge !== "break");
@@ -326,6 +326,9 @@ const prizes = [
 			<div class="format-head reveal">
 				<p class="label">Championship Structure</p>
 				<h2 class="section-title">Format</h2>
+				<p class="format-sub">
+					Single qualifying session, followed by a 50% FIA F1 race distance.
+				</p>
 			</div>
 
 			<div class="format-grid reveal">
@@ -1059,6 +1062,13 @@ const prizes = [
 	}
 	.format-head {
 		margin-bottom: 48px;
+	}
+	.format-sub {
+		margin-top: 18px;
+		font-size: clamp(18px, 2vw, 24px);
+		line-height: 1.45;
+		color: #d2d2e3;
+		max-width: 52ch;
 	}
 
 	.format-grid {
