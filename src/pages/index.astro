@@ -10,7 +10,7 @@ const stats = [
 	{ value: '30+',   label: 'Races Hosted' },
 	{ value: '75+',   label: 'Registered Drivers' },
 	{ value: '15+',   label: 'Podium Finishers' },
-	{ value: '~30',   label: 'Drivers Reports Closed' },
+	{ value: '~30',   label: 'Reports Closed' },
 	{ value: '3',     label: 'Seasons Completed' },
 ];
 
@@ -21,7 +21,7 @@ const aboutFacts = [
 ];
 
 const calendar = [
-	{ round: '01', date: 'Mon 27 Apr', flag: '🇧🇭', name: 'Bahrain International Circuit',        country: 'Sakhir, Bahrain',                 badge: 'opener' },
+	{ round: '01', date: 'Mon 27 Apr', flag: '🇧🇭', name: 'Bahrain Int. Circuit',        country: 'Sakhir, Bahrain',                 badge: 'opener' },
 	{ round: '02', date: 'Mon 12 May', flag: '🇮🇹', name: 'Autodromo Enzo e Dino Ferrari',        country: 'Imola, Italy',                    badge: '' },
 	{ round: '03', date: 'Mon 26 May', flag: '🇬🇧', name: 'Silverstone Circuit',                  country: 'Northamptonshire, UK',             badge: '' },
 	{ round: '04', date: 'Mon 09 Jun', flag: '🇦🇹', name: 'Red Bull Ring',                        country: 'Spielberg, Austria',               badge: '' },
@@ -36,13 +36,24 @@ const calendar = [
 	{ round: '12', date: 'Mon 10 Nov', flag: '🇦🇪', name: 'Yas Marina Circuit',                   country: 'Abu Dhabi, UAE',                   badge: 'finale' },
 ];
 
+const format = [
+	{ phase: 'Driver Briefing',    time: '5–10 min',  start: '21:00' },
+	{ phase: 'Qualifying', time: '15 min',    start: '—' },
+	{ phase: 'Race',          time: '45 min',    start: '—' },
+];
+
+const raceRounds = calendar.filter((r) => r.badge !== 'break');
+const calendarLeft = raceRounds.slice(0, 7);
+const calendarRight = raceRounds.slice(7, 12);
+const summerBreak = calendar.find((r) => r.badge === 'break');
+
 const prizes = [
-	{ pos: '1st', amount: '120', highlight: true },
+	{ pos: '1st', amount: '125', highlight: true },
 	{ pos: '2nd', amount: '80',  highlight: false },
 	{ pos: '3rd', amount: '60',  highlight: false },
 	{ pos: '4th', amount: '40',  highlight: false },
-	{ pos: '5th', amount: '25',  highlight: false },
-	{ pos: 'Fair Play', amount: '35', highlight: false },
+	{ pos: '5th', amount: '30',  highlight: false },
+	{ pos: 'Fair Play', amount: '25', highlight: false },
 ];
 ---
 
@@ -132,7 +143,9 @@ const prizes = [
 					<p>
 						Founded in May 2025, Reborn Racing is dedicated to delivering a competitive yet
 						enjoyable sim racing experience on PC, welcoming drivers of all skill levels.
-						The league hosts a seasonal championship open to anyone.
+					</p>
+					<p>
+					The league hosts a seasonal championship open to anyone.
 					</p>
 				</div>
 				<div class="about-facts">
@@ -178,22 +191,51 @@ const prizes = [
 		</div>
 	</section>
 
+	<!-- ══════════════════════════ FORMAT ══════════════════════════ -->
+	<section class="format-section">
+		<div class="wrap">
+			<div class="format-head reveal">
+				<p class="label">Championship Structure</p>
+				<h2 class="section-title">Format</h2>
+			</div>
+
+			<div class="format-grid reveal">
+				{format.map((item, index) => (
+					<div class="format-card" style={`--card-index: ${index}`}>
+						<div class="format-number">{String(index + 1).padStart(2, '0')}</div>
+						<div class="format-content">
+							<h3 class="format-phase">{item.phase}</h3>
+							<div class="format-details">
+								<div class="format-detail">
+									<span class="detail-label">Duration</span>
+									<span class="detail-value">{item.time}</span>
+								</div>
+								{item.start !== '—' && (
+									<div class="format-detail">
+										<span class="detail-label">Start Time</span>
+										<span class="detail-value">{item.start}</span>
+									</div>
+								)}
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
 	<!-- ══════════════════════════ CALENDAR ══════════════════════════ -->
 	<section class="calendar-section" id="calendar">
 		<div class="wrap">
 			<div class="calendar-head reveal">
 				<p class="label">Season 4 · 2026</p>
-				<h2 class="section-title">Race Calendar</h2>
-				<p class="calendar-sub">Biweekly Mondays · 12 rounds · 1-month summer break in August</p>
+				<h2 class="section-title">Calendar</h2>
+				<p class="calendar-sub">Biweekly Mondays - 12 rounds - 1-month summer break in August</p>
 			</div>
 
 			<div class="cal-table reveal">
-				{calendar.map((r) =>
-					r.badge === 'break' ? (
-						<div class="cal-break">
-							<span>☀&ensp;Summer Break — August</span>
-						</div>
-					) : (
+				<div class="cal-column">
+					{calendarLeft.map((r) => (
 						<div class={`cal-row ${r.badge ? `cal-row--${r.badge}` : ''}`}>
 							<div class="cal-round">{r.round}</div>
 							<div class="cal-date">{r.date}</div>
@@ -205,8 +247,36 @@ const prizes = [
 							{r.badge === 'opener' && <span class="badge badge--red">Season Opener</span>}
 							{r.badge === 'finale' && <span class="badge badge--gold">Season Finale</span>}
 						</div>
-					)
+					))}
+				</div>
+
+				{summerBreak && (
+					<div class="cal-break-mid">
+						<div class="cal-break-line" aria-hidden="true"></div>
+						<div class="cal-break-pill">
+							<span class="cal-break-icon">☀</span>
+							<span class="cal-break-title">{summerBreak.name}</span>
+							<span class="cal-break-date">{summerBreak.date}</span>
+						</div>
+						<div class="cal-break-line" aria-hidden="true"></div>
+					</div>
 				)}
+
+				<div class="cal-column">
+					{calendarRight.map((r) => (
+						<div class={`cal-row ${r.badge ? `cal-row--${r.badge}` : ''}`}>
+							<div class="cal-round">{r.round}</div>
+							<div class="cal-date">{r.date}</div>
+							<div class="cal-flag">{r.flag}</div>
+							<div class="cal-circuit">
+								<span class="cal-name">{r.name}</span>
+								<span class="cal-country">{r.country}</span>
+							</div>
+							{r.badge === 'opener' && <span class="badge badge--red">Season Opener</span>}
+							{r.badge === 'finale' && <span class="badge badge--gold">Season Finale</span>}
+						</div>
+					))}
+				</div>
 			</div>
 
 		</div>
@@ -237,7 +307,8 @@ const prizes = [
 			<div class="prize-note reveal">
 				<p class="prize-note-title">100% Prize Fund Policy</p>
 				<p><strong>Every euro of entry fees goes straight to the prize pool.</strong></p>
-				<p>Entry fee is €15 per driver, and with 24 drivers the full €360 is paid back out as rewards. No admin cuts. No hidden deductions.</p>
+				<p class="prize-note-line">Entry fee is €15 per driver, and with 24 drivers the full €360 is paid back out as rewards.</p>
+				<p>No admin cuts. No hidden deductions.</p>
 			</div>
 		</div>
 	</section>
@@ -584,7 +655,7 @@ const prizes = [
 	}
 	.stat-label {
 		font-family: var(--font-cond);
-		font-size: 13px;
+		font-size: 18px;
 		letter-spacing: 0.18em;
 		text-transform: uppercase;
 		color: var(--grey-mid);
@@ -681,9 +752,10 @@ const prizes = [
 		margin-bottom: 22px;
 	}
 	.car-desc {
-		font-size: 17px;
-		color: #c4c4d4;
-		line-height: 1.8;
+		font-size: clamp(18px, 2.3vw, 24px);
+		line-height: 1.7;
+		color: #d2d2e3;
+		max-width: 44ch;
 		margin-bottom: 36px;
 	}
 	.car-specs {
@@ -735,23 +807,114 @@ const prizes = [
 		border: 0;
 	}
 
+	/* ════════════════ FORMAT ════════════════ */
+	.format-section {
+		padding: 120px 0;
+		background:
+			linear-gradient(180deg, #0b0b0f 0%, #12121a 100%);
+		border-top: 1px solid var(--border);
+		border-bottom: 1px solid var(--border);
+	}
+	.format-head { margin-bottom: 48px; }
+
+	.format-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+	}
+	.format-card {
+		background: var(--surface2);
+		border: 1px solid var(--border);
+		padding: 32px 24px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		transition: background 0.2s, border-color 0.2s;
+		position: relative;
+		overflow: hidden;
+	}
+	.format-card::before {
+		content: '';
+		position: absolute;
+		top: 0; left: 0; right: 0;
+		height: 3px;
+		background: var(--red);
+	}
+	.format-card:hover {
+		background: #1f1f28;
+		border-color: rgba(255,255,255,0.15);
+	}
+	.format-number {
+		font-family: var(--font-display);
+		font-size: 36px;
+		line-height: 1;
+		color: rgba(255,255,255,0.12);
+	}
+	.format-phase {
+		font-family: var(--font-cond);
+		font-size: 32px;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		color: #ffffff;
+		margin: 0;
+	}
+	.format-details {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	.format-detail {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-bottom: 12px;
+		border-bottom: 1px solid rgba(255,255,255,0.08);
+	}
+	.format-detail:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+	.detail-label {
+		font-family: var(--font-cond);
+		font-size: 20px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--grey-mid);
+	}
+	.detail-value {
+		font-family: var(--font-cond);
+		font-size: 26px;
+		font-weight: 600;
+		color: #ffffff;
+	}
+
 	/* ════════════════ CALENDAR ════════════════ */
 	.calendar-section {
 		padding: 120px 0;
 		background: var(--bg);
 	}
-	.calendar-head { margin-bottom: 56px; }
+	.calendar-section .wrap {
+		max-width: min(1580px, 97vw);
+	}
+	.calendar-head { margin-bottom: 30px; }
 	.calendar-sub {
 		margin-top: 18px;
-		font-family: var(--font-cond);
-		font-size: 19px;
-		letter-spacing: 0.12em;
-		color: var(--grey-mid);
+		font-size: clamp(18px, 2.3vw, 24px);
+		line-height: 1.5;
+		color: #d2d2e3;
+		max-width: 50ch;
 	}
 
 	.cal-table {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+		gap: 24px;
+		align-items: start;
+	}
+
+	.cal-column {
 		border: 1px solid var(--border);
-		background: var(--border); /* gap color */
+		background: var(--border);
 		display: flex;
 		flex-direction: column;
 		gap: 1px;
@@ -759,10 +922,10 @@ const prizes = [
 	.cal-row {
 		background: var(--surface);
 		display: grid;
-		grid-template-columns: 56px 136px 44px 1fr auto;
-		gap: 0 18px;
+		grid-template-columns: 52px 124px 40px 1fr auto;
+		gap: 0 14px;
 		align-items: center;
-		padding: 16px 24px;
+		padding: 11px 18px;
 		border-left: 3px solid transparent;
 		transition: background 0.2s, border-color 0.2s;
 	}
@@ -770,27 +933,52 @@ const prizes = [
 	.cal-row--opener { border-left-color: var(--red); }
 	.cal-row--finale { border-left-color: var(--gold); }
 
-	.cal-break {
-		background: var(--bg);
-		padding: 14px 24px;
+	.cal-break-mid {
+		padding: 0 8px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		align-self: stretch;
 	}
-	.cal-break span {
+	.cal-break-line {
+		width: 1px;
+		flex: 1;
+		min-height: 80px;
+		background: linear-gradient(to bottom, rgba(255, 211, 77, 0), rgba(255, 211, 77, 0.8), rgba(255, 211, 77, 0));
+	}
+	.cal-break-pill {
+		padding: 14px 16px;
+		border: 1px solid rgba(255, 211, 77, 0.45);
+		background: linear-gradient(180deg, rgba(255, 211, 77, 0.08), rgba(255, 211, 77, 0.02));
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 2px;
+		min-width: 170px;
+	}
+	.cal-break-icon {
+		font-size: 24px;
+		line-height: 1;
+	}
+	.cal-break-title {
 		font-family: var(--font-cond);
-		font-size: 15px;
+		font-size: 22px;
 		font-weight: 700;
-		letter-spacing: 0.28em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		color: #ffd34d;
 		text-shadow: 0 0 10px rgba(255, 211, 77, 0.28);
-		display: flex;
-		align-items: center;
-		gap: 20px;
+		line-height: 1.05;
 	}
-	.cal-break span::before, .cal-break span::after {
-		content: '';
-		flex: 1;
-		height: 1px;
-		background: rgba(255, 211, 77, 0.75);
+	.cal-break-date {
+		font-family: var(--font-cond);
+		font-size: 15px;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: #f8e7b0;
 	}
 
 	.cal-round {
@@ -895,7 +1083,7 @@ const prizes = [
 	}
 	.prize-total-label {
 		font-family: var(--font-cond);
-		font-size: 17px;
+		font-size: 22px;
 		font-weight: 700;
 		letter-spacing: 0.25em;
 		text-transform: uppercase;
@@ -915,7 +1103,7 @@ const prizes = [
 	}
 	.prize-note .prize-note-title {
 		font-family: var(--font-cond);
-		font-size: 18px;
+		font-size: 22px;
 		font-weight: 700;
 		letter-spacing: 0.24em;
 		text-transform: uppercase;
@@ -923,9 +1111,14 @@ const prizes = [
 		margin-bottom: 12px;
 	}
 	.prize-note p {
-		font-size: 16px;
-		color: #e0e0ec;
-		line-height: 1.65;
+		font-size: clamp(18px, 2.3vw, 24px);
+		line-height: 1.7;
+		color: #d2d2e3;
+		max-width: 44ch;
+	}
+	.prize-note .prize-note-line {
+		white-space: nowrap;
+		max-width: none;
 	}
 	.prize-note strong { color: #ffffff; font-weight: 700; }
 
@@ -953,10 +1146,10 @@ const prizes = [
 		margin-bottom: 28px;
 	}
 	.join-sub {
-		font-size: clamp(16px, 1.6vw, 19px);
-		color: #c4c4d4;
-		line-height: 1.75;
-		max-width: 52ch;
+		font-size: clamp(18px, 2.3vw, 24px);
+		line-height: 1.7;
+		color: #d2d2e3;
+		max-width: 44ch;
 		margin-bottom: 52px;
 	}
 	.join-actions {
@@ -1034,12 +1227,22 @@ const prizes = [
 	@media (max-width: 1024px) {
 		.car-inner { grid-template-columns: 1fr; gap: 48px; }
 		.about-grid { grid-template-columns: 1fr; }
+		.format-grid { grid-template-columns: 1fr 1fr; }
+		.calendar-section .wrap { max-width: 1160px; }
+		.cal-table { grid-template-columns: 1fr; gap: 12px; }
+		.cal-break-mid { flex-direction: row; gap: 14px; padding: 8px 0; }
+		.cal-break-line { width: auto; height: 1px; min-height: 0; flex: 1; background: linear-gradient(to right, rgba(255, 211, 77, 0), rgba(255, 211, 77, 0.8), rgba(255, 211, 77, 0)); }
+		.cal-break-pill { min-width: 0; padding: 10px 18px; }
 		.prizes-grid { grid-template-columns: repeat(3, 1fr); }
 	}
 
 	@media (max-width: 768px) {
 		.wrap { padding: 0 24px; }
 		.nav-inner { padding: 0 24px; height: 76px; }
+		.format-grid { grid-template-columns: 1fr; }
+		.format-phase { font-size: 30px; }
+		.detail-label { font-size: 18px; }
+		.detail-value { font-size: 24px; }
 		.hero,
 		.about,
 		join-actions { flex-direction: column; align-items: center; }
