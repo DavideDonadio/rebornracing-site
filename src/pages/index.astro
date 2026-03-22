@@ -1,11 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ServerStatus from "../components/ServerStatus.astro";
-import hamVsVerImage from "../assets/imgs/hamvsver.jpg";
+import sfImage from "../assets/imgs/sf.jpg";
 
 const title = "Reborn Racing | Season 4";
 const description =
-	"Reborn Racing — Season 4 launches April 27th. 24 drivers, 12 circuits, €360 prize pool. The most competitive season yet.";
+	"Reborn Racing — Season 4 launches April 27th. 24 drivers, 12 circuits, and per-race rewards for the podium. The most competitive season yet.";
 
 const stats = [
 	{ value: "30+", label: "Races Hosted" },
@@ -140,13 +140,12 @@ const calendarRight = raceRounds.slice(7, 12);
 const summerBreak = calendar.find((r) => r.badge === "break");
 
 const prizes = [
-	{ pos: "1st", amount: "125", highlight: true },
-	{ pos: "2nd", amount: "80", highlight: false },
-	{ pos: "3rd", amount: "60", highlight: false },
-	{ pos: "4th", amount: "40", highlight: false },
-	{ pos: "5th", amount: "30", highlight: false },
-	{ pos: "Fair Play", amount: "25", highlight: false },
+	{ pos: "1st", amount: "12", highlight: true },
+	{ pos: "2nd", amount: "8", highlight: false },
+	{ pos: "3rd", amount: "4", highlight: false },
 ];
+
+const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 ---
 
 <Layout title={title} description={description}>
@@ -198,7 +197,7 @@ const prizes = [
 			<div class="hero-highlight">
 				<p class="hero-metrics">
 					<span>24 Drivers</span>
-					<span>12 Circuits</span>
+					<span>10 Circuits</span>
 					<span class="hero-metrics-champion"
 						><span>1 Champion</span></span
 					>
@@ -276,50 +275,29 @@ const prizes = [
 		<div class="wrap car-inner">
 			<div class="car-info reveal">
 				<p class="label car-tag">Official Car · Season 4</p>
-				<h2 class="car-name">RSS Formula<br />Hybrid 2021</h2>
+				<h2 class="car-name">RSS Formula<br />Supreme 2025</h2>
 				<p class="car-desc">
-					Modeled on the 2021 F1 hybrid generation. Demands precision,
-					racecraft, and a deep understanding of energy deployment
-					through every corner.
+					A modern open-wheel masterpiece: razor-sharp through fast
+					corners, alive under braking, and built for drivers who can
+					balance aggression with precision.
 				</p>
-				<div class="car-specs">
-					<div class="spec">
-						<span class="spec-k">Class</span><span class="spec-v"
-							>Formula Hybrid</span
-						>
-					</div>
-					<div class="spec">
-						<span class="spec-k">Power</span><span class="spec-v"
-							>~ 1000 HP</span
-						>
-					</div>
-					<div class="spec">
-						<span class="spec-k">Creator</span><span class="spec-v"
-							>Race Sim Studio</span
-						>
-					</div>
-					<div class="spec">
-						<span class="spec-k">Setup</span><span class="spec-v"
-							>Fixed</span
-						>
-					</div>
-					<div class="spec">
-						<span class="spec-k">Drivetrain</span><span
-							class="spec-v">Hybrid / RWD</span
-						>
-					</div>
-					<div class="spec">
-						<span class="spec-k">Year</span><span class="spec-v"
-							>2021</span
-						>
-					</div>
+				<div class="car-features" aria-label="Car key features">
+					{
+						carFeatures.map((feature) => (
+							<span
+								class={`car-chip ${feature === "Fixed setup" ? "car-chip--highlight" : ""}`}
+							>
+								{feature}
+							</span>
+						))
+					}
 				</div>
 			</div>
 
 			<div class="car-visual reveal">
 				<img
-					src={hamVsVerImage.src}
-					alt="Mercedes-AMG F1 W12 race car"
+					src={sfImage.src}
+					alt="Ferrari SF race car"
 					loading="lazy"
 					decoding="async"
 				/>
@@ -386,7 +364,7 @@ const prizes = [
 				<p class="label">Season 4 · 2026</p>
 				<h2 class="section-title">Calendar</h2>
 				<p class="calendar-sub">
-					Biweekly Mondays - 12 rounds - 1-month summer break in
+					Biweekly Mondays - 10 rounds - 1-month summer break in
 					August
 				</p>
 			</div>
@@ -490,22 +468,28 @@ const prizes = [
 				}
 			</div>
 
-			<div class="prize-total reveal">
-				<span class="prize-total-label">Total Prize Pool</span>
-				<span class="prize-total-value">€ 360</span>
+			<div class="prize-totals reveal">
+				<div class="prize-total">
+					<span class="prize-total-label">Paid Per Race</span>
+					<span class="prize-total-value">€24</span>
+				</div>
+				<div class="prize-total prize-total--season">
+					<span class="prize-total-label">Total Paid (10 Races)</span>
+					<span class="prize-total-value">€240</span>
+				</div>
 			</div>
 
 			<div class="prize-note reveal">
 				<p class="prize-note-title">100% Prize Fund Policy</p>
-				<p>
+				<p class="prize-note-one-line">
 					<strong
-						>Every euro of entry fees goes straight to the prize
-						pool.</strong
+						>Every euro of entry fees goes straight back as race
+						rewards.</strong
 					>
 				</p>
 				<p class="prize-note-line">
-					Entry fee is €15 per driver, and with 24 drivers the full
-					€360 is paid back out as rewards.
+					Entry fee is €10 per driver and rewards are paid each race:
+					€12 for 1st, €8 for 2nd, and €4 for 3rd.
 				</p>
 				<p>No admin cuts. No hidden deductions.</p>
 			</div>
@@ -1054,34 +1038,36 @@ const prizes = [
 		line-height: 1.7;
 		color: #d2d2e3;
 		max-width: 44ch;
-		margin-bottom: 36px;
+		margin-bottom: 0;
 	}
-	.car-specs {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1px;
-		background: var(--border);
-		border: 1px solid var(--border);
-	}
-	.spec {
-		background: var(--surface2);
-		padding: 14px 18px;
+	.car-features {
+		margin-top: 24px;
 		display: flex;
-		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+	.car-chip {
+		display: inline-flex;
 		align-items: center;
-	}
-	.spec-k {
+		padding: 9px 14px;
 		font-family: var(--font-cond);
-		font-size: 15px;
-		letter-spacing: 0.18em;
+		font-size: 13px;
+		font-weight: 700;
+		letter-spacing: 0.12em;
 		text-transform: uppercase;
-		color: var(--grey-mid);
+		color: #f6f6ff;
+		background: linear-gradient(
+			120deg,
+			rgba(255, 255, 255, 0.08),
+			rgba(255, 255, 255, 0.03)
+		);
+		border: 1px solid rgba(255, 255, 255, 0.12);
 	}
-	.spec-v {
-		font-family: var(--font-cond);
-		font-size: 18px;
-		font-weight: 600;
-		color: #ffffff;
+	.car-chip--highlight {
+		color: #1a1100;
+		background: linear-gradient(120deg, #ffd56b, #ffbe3d);
+		border-color: rgba(255, 190, 61, 0.95);
+		box-shadow: 0 0 0 1px rgba(255, 190, 61, 0.3);
 	}
 	.car-visual {
 		background: var(--surface2);
@@ -1394,14 +1380,16 @@ const prizes = [
 
 	.prizes-grid {
 		display: grid;
-		grid-template-columns: repeat(6, 1fr);
-		gap: 1px;
-		background: var(--border);
-		border: 1px solid var(--border);
+		grid-template-columns: repeat(3, 1fr);
+		gap: 16px;
 	}
 	.prize-card {
 		background: var(--surface2);
 		padding: 36px 24px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
 		transition: background 0.2s;
 		position: relative;
 		overflow: hidden;
@@ -1422,6 +1410,7 @@ const prizes = [
 		text-transform: uppercase;
 		color: var(--grey-mid);
 		margin-bottom: 16px;
+		width: 100%;
 	}
 	.prize-card--gold .prize-pos {
 		color: var(--gold);
@@ -1436,13 +1425,22 @@ const prizes = [
 		color: var(--gold);
 	}
 
+	.prize-totals {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 16px;
+		margin-top: 20px;
+	}
+
 	.prize-total {
 		background: var(--red);
 		padding: 28px 36px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-top: 20px;
+	}
+	.prize-total--season {
+		background: linear-gradient(110deg, #0f5e8a 0%, #19a7ce 100%);
 	}
 	.prize-total-label {
 		font-family: var(--font-cond);
@@ -1482,6 +1480,10 @@ const prizes = [
 		line-height: 1.7;
 		color: #d2d2e3;
 		max-width: 44ch;
+	}
+	.prize-note .prize-note-one-line {
+		max-width: none;
+		white-space: nowrap;
 	}
 	.prize-note .prize-note-line {
 		white-space: normal;
@@ -1665,6 +1667,9 @@ const prizes = [
 		}
 		.prizes-grid {
 			grid-template-columns: repeat(3, 1fr);
+		}
+		.prize-totals {
+			grid-template-columns: 1fr;
 		}
 	}
 
@@ -1881,17 +1886,6 @@ const prizes = [
 		.prizes-section,
 		.join-section {
 			padding: 80px 0;
-		}
-		.car-specs {
-			grid-template-columns: 1fr;
-		}
-		.spec {
-			gap: 12px;
-			align-items: flex-start;
-		}
-		.spec-k,
-		.spec-v {
-			font-size: 14px;
 		}
 		.cal-row {
 			grid-template-columns: 36px 1fr;
