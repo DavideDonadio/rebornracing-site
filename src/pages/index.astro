@@ -334,7 +334,8 @@ const prizes = [
 				<p class="label">Championship Structure</p>
 				<h2 class="section-title">Format</h2>
 				<p class="format-sub">
-					Single qualifying session, followed by a 50% FIA F1 race distance.
+					Single qualifying session, followed by a 50% FIA F1 race
+					distance.
 				</p>
 			</div>
 
@@ -692,8 +693,9 @@ const prizes = [
 		border: none;
 		cursor: pointer;
 		padding: 8px;
-		z-index: 1001; /* Stay above mobile nav overlay */
+		/* Ensure toggle is always on top of the overlay */
 		position: relative;
+		z-index: 200;
 	}
 	.hamburger {
 		display: block;
@@ -922,7 +924,8 @@ const prizes = [
 		position: relative;
 		z-index: 1;
 		display: grid;
-		grid-template-columns: 1fr;
+		/* 5 equal columns on desktop */
+		grid-template-columns: repeat(5, 1fr);
 		max-width: 1160px;
 		margin: 0 auto;
 		border-top: 1px solid var(--border);
@@ -930,14 +933,15 @@ const prizes = [
 		background: transparent;
 	}
 	.stat-item {
-		padding: 34px 40px;
+		padding: 34px 24px;
 		position: relative;
 		overflow: hidden;
 		text-align: center;
 		background: transparent;
 	}
+	/* Vertical dividers between stat items */
 	.stat-item + .stat-item {
-		border-top: none;
+		border-left: 1px solid var(--border);
 	}
 	.stat-value {
 		font-family: var(--font-display);
@@ -1674,6 +1678,19 @@ const prizes = [
 			padding: 0 24px;
 			height: 76px;
 		}
+
+		/*
+		 * FIX: backdrop-filter on .nav creates a new containing block for
+		 * position:fixed children (per CSS spec). This traps the full-screen
+		 * overlay inside the 76px nav bar. Remove it on mobile and compensate
+		 * with a solid background so the overlay covers the full viewport.
+		 */
+		.nav {
+			backdrop-filter: none;
+			-webkit-backdrop-filter: none;
+			background: rgba(8, 8, 9, 0.98);
+		}
+
 		.mobile-toggle {
 			display: block;
 		}
@@ -1691,7 +1708,7 @@ const prizes = [
 			transition:
 				transform 0.4s cubic-bezier(0.77, 0, 0.175, 1),
 				opacity 0.4s;
-			z-index: 1000;
+			z-index: 150;
 			opacity: 0;
 			pointer-events: none;
 		}
@@ -1700,8 +1717,20 @@ const prizes = [
 			opacity: 1;
 			pointer-events: auto;
 		}
+		/* Stats: 3 columns on tablet/mobile */
+		.stats-strip {
+			grid-template-columns: repeat(3, 1fr);
+		}
+		/* Reset the left border on items that are now in a new row */
+		.stat-item:nth-child(3n + 1) {
+			border-left: none;
+		}
+		/* Add a top border between rows */
+		.stat-item:nth-child(n + 4) {
+			border-top: 1px solid var(--border);
+		}
 		.format-grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: 1fr 1fr;
 		}
 		.format-phase {
 			font-size: 30px;
@@ -1754,6 +1783,28 @@ const prizes = [
 		.scroll-cue {
 			display: none;
 		}
+		/* Hero: tighten spacing on tablet */
+		.hero {
+			min-height: 100svh;
+			padding-top: 76px;
+			padding-bottom: 48px;
+			justify-content: flex-start;
+			padding-top: 110px;
+		}
+		.hero-eyebrow {
+			margin-bottom: 16px;
+		}
+		.hero-highlight {
+			margin-top: 20px;
+			gap: 10px;
+		}
+		.hero-actions {
+			margin-top: 32px;
+		}
+		/* About: single column padding */
+		.about-story {
+			padding: 32px;
+		}
 	}
 
 	@media (max-width: 480px) {
@@ -1777,25 +1828,55 @@ const prizes = [
 			font-size: 12px;
 			letter-spacing: 0.04em;
 		}
+		/* Stats: 2 columns on small mobile */
+		.stats-strip {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		/* Reset row rules from 768px breakpoint */
+		.stat-item:nth-child(3n + 1) {
+			border-left: 1px solid var(--border);
+		}
+		.stat-item:nth-child(2n + 1) {
+			border-left: none;
+		}
+		.stat-item:nth-child(n + 4) {
+			border-top: none;
+		}
+		.stat-item:nth-child(n + 3) {
+			border-top: 1px solid var(--border);
+		}
+		.stat-item {
+			padding: 24px 16px;
+		}
+		.stat-value {
+			font-size: clamp(40px, 10vw, 60px);
+		}
+		.stat-label {
+			font-size: 14px;
+			letter-spacing: 0.1em;
+			margin-top: 6px;
+		}
+		/* Hero: compact on small screens */
 		.hero {
-			padding-top: 70px;
-			min-height: auto;
+			min-height: 0;
+			padding-top: 90px;
+			padding-bottom: 52px;
+			justify-content: flex-start;
 		}
 		.hero-title-reborn,
 		.hero-title-racing {
-			font-size: clamp(72px, 22vw, 108px);
+			font-size: clamp(64px, 19vw, 96px);
 		}
 		.hero-highlight {
 			max-width: 100%;
+			margin-top: 16px;
+			gap: 8px;
 		}
 		.hero-metrics {
 			gap: 8px;
 		}
-		.stat-item {
-			padding: 28px 20px;
-		}
 		.hero-metrics span {
-			font-size: 18px;
+			font-size: 16px;
 		}
 		.hero-metrics span + span::before {
 			margin-right: 8px;
@@ -1810,6 +1891,11 @@ const prizes = [
 		}
 		.hero-launch-date {
 			font-size: 26px;
+		}
+		.hero-actions {
+			margin-top: 28px;
+			flex-direction: column;
+			align-items: stretch;
 		}
 		.about,
 		.car-section,
@@ -1858,19 +1944,24 @@ const prizes = [
 		.prizes-grid {
 			grid-template-columns: 1fr 1fr;
 		}
-		.hero-actions {
-			flex-direction: column;
-			align-items: flex-start;
-		}
 		.join-actions {
 			flex-direction: column;
-			align-items: flex-start;
+			align-items: stretch;
 		}
 		.btn-primary,
 		.btn-ghost {
 			width: 100%;
 			justify-content: center;
 			padding: 16px 20px;
+		}
+		.format-grid {
+			grid-template-columns: 1fr;
+		}
+		.join-section {
+			padding: 80px 0;
+		}
+		.join-sub {
+			margin-bottom: 36px;
 		}
 	}
 
@@ -1890,7 +1981,10 @@ const prizes = [
 		}
 		.hero-title-reborn,
 		.hero-title-racing {
-			font-size: clamp(62px, 21vw, 84px);
+			font-size: clamp(58px, 18vw, 78px);
+		}
+		.stat-label {
+			font-size: 12px;
 		}
 	}
 </style>
