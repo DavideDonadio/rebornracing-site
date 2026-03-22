@@ -912,18 +912,12 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		grid-template-columns: repeat(5, 1fr);
 		max-width: 1160px;
 		margin: 0 auto;
-		/* Gap-background technique: container bg = border color, gap = 1px line */
-		background: var(--border);
-		border: 1px solid var(--border);
-		gap: 1px;
+		gap: 48px;
 	}
 	.stat-item {
-		padding: 34px 24px;
+		padding: 34px 0;
 		position: relative;
-		overflow: hidden;
 		text-align: center;
-		/* Solid bg so the container's border color shows through as dividers */
-		background: var(--bg);
 	}
 	.stat-value {
 		font-family: var(--font-display);
@@ -1828,7 +1822,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 			grid-template-columns: repeat(2, 1fr);
 		}
 		.stat-item {
-			padding: 24px 16px;
+			padding: 24px 0;
 		}
 		.stat-value {
 			font-size: clamp(40px, 10vw, 60px);
