@@ -159,10 +159,17 @@ const prizes = [
 					<span class="nav-brand-racing">Racing</span>
 				</span>
 			</a>
+			<button
+				class="mobile-toggle"
+				aria-label="Toggle Menu"
+				aria-expanded="false"
+			>
+				<span class="hamburger"></span>
+			</button>
 			<div class="nav-links">
-				<a href="#about">About Us</a>
-				<a href="#calendar">Calendar</a>
-				<a href="#prizes">Prizes</a>
+				<a href="#about" class="nav-link">About Us</a>
+				<a href="#calendar" class="nav-link">Calendar</a>
+				<a href="#prizes" class="nav-link">Prizes</a>
 				<ServerStatus />
 				<a href="#join" class="nav-cta">Join Season 4</a>
 			</div>
@@ -677,6 +684,54 @@ const prizes = [
 	}
 	.nav-cta:hover {
 		background: #c5001f !important;
+	}
+
+	.mobile-toggle {
+		display: none;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		padding: 8px;
+		z-index: 1001; /* Stay above mobile nav overlay */
+		position: relative;
+	}
+	.hamburger {
+		display: block;
+		width: 24px;
+		height: 2px;
+		background: #ffffff;
+		position: relative;
+		transition: background 0.2s;
+	}
+	.hamburger::before,
+	.hamburger::after {
+		content: "";
+		position: absolute;
+		width: 24px;
+		height: 2px;
+		background: #ffffff;
+		left: 0;
+		transition:
+			transform 0.3s,
+			top 0.3s,
+			bottom 0.3s;
+	}
+	.hamburger::before {
+		top: -8px;
+	}
+	.hamburger::after {
+		bottom: -8px;
+	}
+	.mobile-toggle[aria-expanded="true"] .hamburger {
+		background: transparent;
+	}
+	.mobile-toggle[aria-expanded="true"] .hamburger::before {
+		transform: rotate(45deg);
+		top: 0;
+	}
+	.mobile-toggle[aria-expanded="true"] .hamburger::after {
+		transform: rotate(-45deg);
+		bottom: 0;
 	}
 
 	/* ════════════════ HERO ════════════════ */
@@ -1619,8 +1674,31 @@ const prizes = [
 			padding: 0 24px;
 			height: 76px;
 		}
+		.mobile-toggle {
+			display: block;
+		}
 		.nav-links {
-			gap: 12px;
+			position: fixed;
+			inset: 0;
+			background: rgba(8, 8, 9, 0.98);
+			backdrop-filter: blur(15px);
+			-webkit-backdrop-filter: blur(15px);
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 32px;
+			transform: translateY(-100%);
+			transition:
+				transform 0.4s cubic-bezier(0.77, 0, 0.175, 1),
+				opacity 0.4s;
+			z-index: 1000;
+			opacity: 0;
+			pointer-events: none;
+		}
+		.nav-links.is-open {
+			transform: translateY(0);
+			opacity: 1;
+			pointer-events: auto;
 		}
 		.format-grid {
 			grid-template-columns: 1fr;
@@ -1647,7 +1725,8 @@ const prizes = [
 			margin-inline: 10px;
 		}
 		.nav-links a:not(.nav-cta) {
-			display: none;
+			display: block;
+			font-size: 24px;
 		}
 		.cal-row {
 			grid-template-columns: 40px 1fr auto;
@@ -1831,6 +1910,40 @@ const prizes = [
 		{ threshold: 0.08 },
 	);
 	reveals.forEach((el) => io.observe(el));
+
+	// Mobile menu toggle
+	const mobileToggle = document.querySelector(".mobile-toggle");
+	const navLinks = document.querySelector(".nav-links");
+	const navLinkItems = document.querySelectorAll(".nav-link, .nav-cta");
+
+	if (mobileToggle && navLinks) {
+		const toggleMenu = () => {
+			const isExpanded =
+				mobileToggle.getAttribute("aria-expanded") === "true";
+			mobileToggle.setAttribute("aria-expanded", String(!isExpanded));
+			navLinks.classList.toggle("is-open");
+			document.body.style.overflow = isExpanded ? "" : "hidden";
+		};
+
+		mobileToggle.addEventListener("click", toggleMenu);
+
+		navLinkItems.forEach((link) => {
+			link.addEventListener("click", () => {
+				if (navLinks.classList.contains("is-open")) {
+					toggleMenu();
+				}
+			});
+		});
+
+		window.addEventListener("resize", () => {
+			if (
+				window.innerWidth > 768 &&
+				navLinks.classList.contains("is-open")
+			) {
+				toggleMenu();
+			}
+		});
+	}
 
 	// Counter effect for stats values
 	const counters = document.querySelectorAll<HTMLElement>(".js-counter");
