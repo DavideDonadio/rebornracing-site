@@ -928,20 +928,18 @@ const prizes = [
 		grid-template-columns: repeat(5, 1fr);
 		max-width: 1160px;
 		margin: 0 auto;
-		border-top: 1px solid var(--border);
-		border-bottom: 1px solid var(--border);
-		background: transparent;
+		/* Gap-background technique: container bg = border color, gap = 1px line */
+		background: var(--border);
+		border: 1px solid var(--border);
+		gap: 1px;
 	}
 	.stat-item {
 		padding: 34px 24px;
 		position: relative;
 		overflow: hidden;
 		text-align: center;
-		background: transparent;
-	}
-	/* Vertical dividers between stat items */
-	.stat-item + .stat-item {
-		border-left: 1px solid var(--border);
+		/* Solid bg so the container's border color shows through as dividers */
+		background: var(--bg);
 	}
 	.stat-value {
 		font-family: var(--font-display);
@@ -1721,14 +1719,6 @@ const prizes = [
 		.stats-strip {
 			grid-template-columns: repeat(3, 1fr);
 		}
-		/* Reset the left border on items that are now in a new row */
-		.stat-item:nth-child(3n + 1) {
-			border-left: none;
-		}
-		/* Add a top border between rows */
-		.stat-item:nth-child(n + 4) {
-			border-top: 1px solid var(--border);
-		}
 		.format-grid {
 			grid-template-columns: 1fr 1fr;
 		}
@@ -1831,19 +1821,6 @@ const prizes = [
 		/* Stats: 2 columns on small mobile */
 		.stats-strip {
 			grid-template-columns: repeat(2, 1fr);
-		}
-		/* Reset row rules from 768px breakpoint */
-		.stat-item:nth-child(3n + 1) {
-			border-left: 1px solid var(--border);
-		}
-		.stat-item:nth-child(2n + 1) {
-			border-left: none;
-		}
-		.stat-item:nth-child(n + 4) {
-			border-top: none;
-		}
-		.stat-item:nth-child(n + 3) {
-			border-top: 1px solid var(--border);
 		}
 		.stat-item {
 			padding: 24px 16px;
