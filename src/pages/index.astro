@@ -154,6 +154,8 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 			</button>
 			<div class="nav-links">
 				<a href="#about" class="nav-link">About Us</a>
+				<a href="#car" class="nav-link">Car</a>
+				<a href="#format" class="nav-link">Format</a>
 				<a href="#calendar" class="nav-link">Calendar</a>
 				<a href="#prizes" class="nav-link">Prizes</a>
 				<ServerStatus />
@@ -258,7 +260,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 	</section>
 
 	<!-- ══════════════════════════ CAR SECTION ══════════════════════════ -->
-	<section class="car-section">
+	<section class="car-section" id="car">
 		<div class="wrap car-inner">
 			<div class="car-info reveal">
 				<p class="label car-tag">Official Car · Season 4</p>
@@ -293,7 +295,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 	</section>
 
 	<!-- ══════════════════════════ FORMAT ══════════════════════════ -->
-	<section class="format-section">
+	<section class="format-section" id="format">
 		<div class="wrap">
 			<div class="format-head reveal">
 				<p class="label">Championship Structure</p>
@@ -638,7 +640,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		-webkit-backdrop-filter: blur(20px);
 	}
 	.nav-inner {
-		max-width: 1160px;
+		max-width: 1400px;
 		margin: 0 auto;
 		padding: 0 40px;
 		height: 84px;
@@ -1034,6 +1036,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		border-top: 1px solid var(--border);
 		border-bottom: 1px solid var(--border);
 		padding: 100px 0;
+		scroll-margin-top: 200px;
 	}
 	.car-inner {
 		display: grid;
