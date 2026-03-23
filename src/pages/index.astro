@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import ServerStatus from "../components/ServerStatus.astro";
 import sfImage from "../assets/imgs/sf.jpg";
 
-const title = "Reborn Racing | Season 4";
+const title = "Reborn Racing";
 const description =
 	"Reborn Racing — Season 4 launches April 27th. 24 drivers, 10 circuits, and per-race rewards for the podium. The most competitive season yet.";
 
@@ -21,11 +21,14 @@ const aboutFacts = [
 	{ label: "Entry", value: "Open To Everyone" },
 ];
 
+const getFlagUrl = (countryCode: string) =>
+	`https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
+
 const calendar = [
 	{
 		round: "01",
 		date: "Mon 27 Apr",
-		flag: "🇧🇭",
+		countryCode: "BH",
 		name: "Bahrain Int. Circuit",
 		country: "Sakhir, Bahrain",
 		badge: "opener",
@@ -33,7 +36,7 @@ const calendar = [
 	{
 		round: "02",
 		date: "Mon 11 May",
-		flag: "🇮🇹",
+		countryCode: "IT",
 		name: "Autodromo Enzo e Dino Ferrari",
 		country: "Imola, Italy",
 		badge: "",
@@ -41,7 +44,7 @@ const calendar = [
 	{
 		round: "03",
 		date: "Mon 25 May",
-		flag: "🇬🇧",
+		countryCode: "GB",
 		name: "Silverstone Circuit",
 		country: "Northamptonshire, UK",
 		badge: "",
@@ -49,7 +52,7 @@ const calendar = [
 	{
 		round: "04",
 		date: "Mon 08 Jun",
-		flag: "🇦🇹",
+		countryCode: "AT",
 		name: "Red Bull Ring",
 		country: "Spielberg, Austria",
 		badge: "",
@@ -57,7 +60,7 @@ const calendar = [
 	{
 		round: "05",
 		date: "Mon 22 Jun",
-		flag: "🇭🇺",
+		countryCode: "HU",
 		name: "Hungaroring",
 		country: "Mogyoród, Hungary",
 		badge: "",
@@ -65,7 +68,7 @@ const calendar = [
 	{
 		round: "06",
 		date: "Mon 06 Jul",
-		flag: "🇧🇪",
+		countryCode: "BE",
 		name: "Circuit de Spa-Francorchamps",
 		country: "Stavelot, Belgium",
 		badge: "",
@@ -73,7 +76,7 @@ const calendar = [
 	{
 		round: "—",
 		date: "August",
-		flag: "",
+		countryCode: "",
 		name: "Summer Break",
 		country: "",
 		badge: "break",
@@ -81,7 +84,7 @@ const calendar = [
 	{
 		round: "07",
 		date: "Mon 07 Sep",
-		flag: "🇺🇸",
+		countryCode: "US",
 		name: "Circuit of the Americas",
 		country: "Austin, Texas, USA",
 		badge: "",
@@ -89,7 +92,7 @@ const calendar = [
 	{
 		round: "08",
 		date: "Mon 05 Oct",
-		flag: "🇯🇵",
+		countryCode: "JP",
 		name: "Suzuka International Racing Course",
 		country: "Suzuka, Japan",
 		badge: "",
@@ -97,7 +100,7 @@ const calendar = [
 	{
 		round: "09",
 		date: "Mon 19 Oct",
-		flag: "🇲🇽",
+		countryCode: "MX",
 		name: "Autodromo Hermanos Rodríguez",
 		country: "Mexico City, Mexico",
 		badge: "",
@@ -105,7 +108,7 @@ const calendar = [
 	{
 		round: "10",
 		date: "Mon 02 Nov",
-		flag: "🇧🇷",
+		countryCode: "BR",
 		name: "Autodromo Carlos Pace",
 		country: "Interlagos, Brazil",
 		badge: "finale",
@@ -362,7 +365,17 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 							>
 								<div class="cal-round">{r.round}</div>
 								<div class="cal-date">{r.date}</div>
-								<div class="cal-flag">{r.flag}</div>
+								<div class="cal-flag">
+									<img
+										class="cal-flag-img"
+										src={getFlagUrl(r.countryCode)}
+										alt={`${r.country} flag`}
+										loading="lazy"
+										decoding="async"
+										onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
+									/>
+									<span class="cal-flag-fallback">{r.countryCode}</span>
+								</div>
 								<div class="cal-circuit">
 									<span class="cal-name">{r.name}</span>
 									<span class="cal-country">{r.country}</span>
@@ -408,7 +421,17 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 							>
 								<div class="cal-round">{r.round}</div>
 								<div class="cal-date">{r.date}</div>
-								<div class="cal-flag">{r.flag}</div>
+								<div class="cal-flag">
+									<img
+										class="cal-flag-img"
+										src={getFlagUrl(r.countryCode)}
+										alt={`${r.country} flag`}
+										loading="lazy"
+										decoding="async"
+										onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
+									/>
+									<span class="cal-flag-fallback">{r.countryCode}</span>
+								</div>
 								<div class="cal-circuit">
 									<span class="cal-name">{r.name}</span>
 									<span class="cal-country">{r.country}</span>
@@ -1204,7 +1227,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 	.cal-row {
 		background: var(--surface);
 		display: grid;
-		grid-template-columns: 52px 124px 40px 1fr auto;
+		grid-template-columns: 52px 124px 52px 1fr auto;
 		gap: 0 14px;
 		align-items: center;
 		padding: 11px 18px;
@@ -1293,7 +1316,27 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		letter-spacing: 0.04em;
 	}
 	.cal-flag {
-		font-size: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 56px;
+		justify-self: center;
+		transform: translateX(-6px);
+	}
+	.cal-flag-img {
+		width: 46px;
+		height: 34px;
+		object-fit: cover;
+		border-radius: 2px;
+		box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14);
+	}
+	.cal-flag-fallback {
+		display: none;
+		font-family: var(--font-cond);
+		font-size: 14px;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		color: var(--grey-mid);
 	}
 	.cal-name {
 		display: block;

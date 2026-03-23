@@ -117,12 +117,12 @@
 	const TIMEOUT = 5000; // 5 second timeout
 
 	async function checkServerStatus() {
-		const serverStatus = document.querySelector('.server-status');
-		const statusBadge = document.querySelector('.status-badge');
-		const statusDot = document.querySelector('.status-dot');
-		const statusText = document.querySelector('.status-text');
+		const serverStatus = document.querySelector<HTMLAnchorElement>('.server-status');
+		const statusBadge = document.querySelector<HTMLDivElement>('.status-badge');
+		const statusDot = document.querySelector<HTMLDivElement>('.status-dot');
+		const statusText = document.querySelector<HTMLSpanElement>('.status-text');
 
-		if (!statusBadge) return;
+		if (!serverStatus || !statusBadge || !statusDot || !statusText) return;
 
 		try {
 			const controller = new AbortController();
