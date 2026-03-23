@@ -374,7 +374,9 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 										decoding="async"
 										onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
 									/>
-									<span class="cal-flag-fallback">{r.countryCode}</span>
+									<span class="cal-flag-fallback">
+										{r.countryCode}
+									</span>
 								</div>
 								<div class="cal-circuit">
 									<span class="cal-name">{r.name}</span>
@@ -430,7 +432,9 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 										decoding="async"
 										onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
 									/>
-									<span class="cal-flag-fallback">{r.countryCode}</span>
+									<span class="cal-flag-fallback">
+										{r.countryCode}
+									</span>
 								</div>
 								<div class="cal-circuit">
 									<span class="cal-name">{r.name}</span>
@@ -500,6 +504,17 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 				</p>
 				<p>No admin cuts. No hidden deductions.</p>
 			</div>
+
+			<div class="prize-disclaimer-box reveal" role="note">
+				<p class="prize-disclaimer-title">Disclaimer</p>
+				<p class="prize-disclaimer-text">
+					These numbers are calculated on a <b>full grid</b>.
+				</p>
+				<p class="prize-disclaimer-text">
+					If the number of drivers is lower, the regulations will
+					specify the updated prizes.
+				</p>
+			</div>
 		</div>
 	</section>
 
@@ -521,7 +536,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 				<div class="join-actions">
 					<a
 						href="https://discord.com/invite/gUXfjbfSa2"
-						class="btn-ghost"
+						class="btn-ghost discord-cta"
 						target="_blank"
 						rel="noopener noreferrer">Join our Discord</a
 					>
@@ -1516,6 +1531,40 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		font-weight: 700;
 	}
 
+	.prize-disclaimer-box {
+		margin-top: 24px;
+		padding: 24px 28px;
+		background: linear-gradient(
+			100deg,
+			rgba(241, 207, 122, 0.2) 0%,
+			rgba(241, 207, 122, 0.08) 100%
+		);
+		border: 2px solid rgba(241, 207, 122, 0.9);
+		box-shadow:
+			0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+			0 10px 24px rgba(0, 0, 0, 0.3);
+	}
+	.prize-disclaimer-title {
+		font-family: var(--font-cond);
+		font-size: 20px;
+		font-weight: 700;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: #ffe5a7;
+		display: inline-block;
+		padding-bottom: 4px;
+		border-bottom: 2px solid #ffe5a7;
+		margin: 0 0 10px;
+	}
+	.prize-disclaimer-text {
+		font-size: clamp(17px, 2vw, 21px);
+		font-size: 22px;
+		line-height: 1.55;
+		color: #fff4d0;
+		max-width: none;
+		margin: 0;
+	}
+
 	/* ════════════════ JOIN CTA ════════════════ */
 	.join-section {
 		position: relative;
@@ -1575,6 +1624,42 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 	.join-actions .btn-ghost {
 		font-size: 18px;
 		font-weight: 700;
+	}
+	.join-actions .discord-cta {
+		position: relative;
+		overflow: hidden;
+		isolation: isolate;
+		background: linear-gradient(120deg, #4d5ad8 0%, #5865f2 50%, #6f84ff 100%);
+		border-color: #8ea0ff;
+		color: #ffffff;
+		box-shadow:
+			0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+			0 0 0 rgba(88, 101, 242, 0.7),
+			0 12px 30px rgba(88, 101, 242, 0.38);
+		animation: discordPulse 2.2s ease-in-out infinite;
+	}
+	.join-actions .discord-cta::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: -46%;
+		width: 42%;
+		height: 100%;
+		background: linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0) 0%,
+			rgba(255, 255, 255, 0.35) 50%,
+			rgba(255, 255, 255, 0) 100%
+		);
+		transform: skewX(-22deg);
+		animation: discordSweep 2.8s linear infinite;
+		pointer-events: none;
+	}
+	.join-actions .discord-cta:hover {
+		background: linear-gradient(120deg, #5b69f4 0%, #6d79ff 100%);
+		border-color: #b8c5ff;
+		color: #ffffff;
+		transform: translateY(-2px) scale(1.02);
 	}
 
 	/* ════════════════ FOOTER ════════════════ */
@@ -1644,10 +1729,40 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 			opacity: 0;
 		}
 	}
+	@keyframes discordPulse {
+		0%,
+		100% {
+			box-shadow:
+				0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+				0 0 0 0 rgba(88, 101, 242, 0.6),
+				0 12px 30px rgba(88, 101, 242, 0.34);
+		}
+		50% {
+			box-shadow:
+				0 0 0 1px rgba(255, 255, 255, 0.16) inset,
+				0 0 0 14px rgba(88, 101, 242, 0),
+				0 18px 36px rgba(88, 101, 242, 0.5);
+		}
+	}
+	@keyframes discordSweep {
+		0% {
+			left: -46%;
+		}
+		100% {
+			left: 132%;
+		}
+	}
 
 	@media (prefers-reduced-motion: reduce) {
 		.hero-launch-line {
 			animation: none;
+		}
+		.join-actions .discord-cta,
+		.join-actions .discord-cta::before {
+			animation: none;
+		}
+		.join-actions .discord-cta:hover {
+			transform: none;
 		}
 	}
 
@@ -1937,6 +2052,13 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		}
 		.prize-note {
 			padding: 22px 18px;
+		}
+		.prize-disclaimer-box {
+			padding: 20px 18px;
+		}
+		.prize-disclaimer-title {
+			font-size: 13px;
+			letter-spacing: 0.16em;
 		}
 		.prizes-grid {
 			grid-template-columns: 1fr 1fr;
