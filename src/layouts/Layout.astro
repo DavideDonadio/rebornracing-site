@@ -4,6 +4,8 @@ interface Props {
 	description?: string;
 }
 
+import logoImage from "../assets/imgs/logo.png";
+
 const {
 	title = 'Reborn Racing | Precision Sim Racing League',
 	description =
@@ -16,8 +18,8 @@ const {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" type="image/png" href={logoImage.src} />
+		<link rel="apple-touch-icon" href={logoImage.src} />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<title>{title}</title>
