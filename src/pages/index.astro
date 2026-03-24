@@ -116,9 +116,19 @@ const calendar = [
 ];
 
 const format = [
-	{ phase: "Driver Briefing", time: "5–10 min", start: "21:00" },
 	{ phase: "Qualifying", time: "15 min", start: "21:10 ca." },
-	{ phase: "Race", time: "45 min", start: "21:25 ca." },
+	{
+		phase: "Race",
+		time: "45 min ca.",
+		distance: "150 km",
+		start: "21:25 ca.",
+	},
+	{
+		phase: "Inverted Grid Sprint",
+		time: "20 min ca.",
+		distance: "75 km",
+		start: "22:10 ca.",
+	},
 ];
 
 const raceRounds = calendar.filter((r) => r.badge !== "break");
@@ -236,12 +246,12 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 
 			<div class="about-grid reveal">
 				<div class="about-story">
-					<p>
+					<p class="section-desc">
 						Founded in May 2025, Reborn Racing is dedicated to
 						delivering a competitive yet enjoyable sim racing
-						experience on PC, welcoming drivers of all skill levels.
-					</p><br>
-					<p>
+						experience on PC.
+					</p><br />
+					<p class="section-desc">
 						The league hosts a seasonal championship open to anyone.
 					</p>
 				</div>
@@ -265,12 +275,24 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 			<div class="car-info reveal">
 				<p class="label car-tag">Official Car · Season 4</p>
 				<h2 class="car-name">RSS Formula<br />Supreme 2025</h2>
-				<p class="car-desc">
+				<p class="car-desc section-desc">
 					A modern open-wheel masterpiece: razor-sharp through fast
 					corners, alive under braking, and built for drivers who can
 					balance aggression with precision.
 				</p>
-				<div class="car-features" aria-label="Car key features">
+			</div>
+
+			<div class="car-visual reveal">
+				<img
+					src={sfImage.src}
+					alt="Ferrari SF race car"
+					loading="lazy"
+					decoding="async"
+				/>
+				<div
+					class="car-features car-features--under-image"
+					aria-label="Car key features"
+				>
 					{
 						carFeatures.map((feature) => (
 							<span
@@ -282,15 +304,6 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 					}
 				</div>
 			</div>
-
-			<div class="car-visual reveal">
-				<img
-					src={sfImage.src}
-					alt="Ferrari SF race car"
-					loading="lazy"
-					decoding="async"
-				/>
-			</div>
 		</div>
 	</section>
 
@@ -300,9 +313,9 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 			<div class="format-head reveal">
 				<p class="label">Championship Structure</p>
 				<h2 class="section-title">Format</h2>
-				<p class="format-sub">
-					Single qualifying session, followed by a 50% FIA F1 race
-					distance.
+				<p class="format-sub section-desc">
+					Single qualifying session, then Race followed by Inverted
+					Grid Sprint.
 				</p>
 			</div>
 
@@ -327,6 +340,16 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 											{item.time}
 										</span>
 									</div>
+									{item.distance && (
+										<div class="format-detail">
+											<span class="detail-label">
+												Distance
+											</span>
+											<span class="detail-value">
+												{item.distance}
+											</span>
+										</div>
+									)}
 									{item.start !== "—" && (
 										<div class="format-detail">
 											<span class="detail-label">
@@ -352,7 +375,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 			<div class="calendar-head reveal">
 				<p class="label">Season 4 · 2026</p>
 				<h2 class="section-title">Calendar</h2>
-				<p class="calendar-sub">
+				<p class="calendar-sub section-desc">
 					Biweekly Mondays - 10 rounds - 1-month summer break in
 					August
 				</p>
@@ -385,9 +408,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 									<span class="cal-country">{r.country}</span>
 								</div>
 								{r.badge === "opener" && (
-									<span class="badge badge--red">
-										Opener
-									</span>
+									<span class="badge badge--red">Opener</span>
 								)}
 								{r.badge === "finale" && (
 									<span class="badge badge--gold">
@@ -530,7 +551,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 					<span class="join-title-line">Bring your pace</span>
 					<span class="join-title-line">Earn your place.</span>
 				</h2>
-				<p class="join-sub">
+				<p class="join-sub section-desc">
 					24 seats. Applications are reviewed to keep the grid
 					balanced and racing standards high. Entry fee secures your
 					spot and feeds the prize pool.
@@ -576,6 +597,12 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		letter-spacing: 0.02em;
 		color: var(--white);
 		margin-top: 16px;
+	}
+	.section-desc {
+		font-size: clamp(18px, 2.3vw, 24px);
+		line-height: 1.7;
+		color: #d2d2e3;
+		max-width: 100%;
 	}
 
 	/* ── Buttons ── */
@@ -991,13 +1018,6 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		border: 1px solid var(--border);
 	}
 
-	.about-story p {
-		font-size: clamp(18px, 2.3vw, 24px);
-		line-height: 1.7;
-		color: #d2d2e3;
-		max-width: 44ch;
-	}
-
 	.about-facts {
 		display: grid;
 		gap: 1px;
@@ -1054,17 +1074,20 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		margin-bottom: 22px;
 	}
 	.car-desc {
-		font-size: clamp(18px, 2.3vw, 24px);
-		line-height: 1.7;
-		color: #d2d2e3;
-		max-width: 44ch;
 		margin-bottom: 0;
 	}
 	.car-features {
-		margin-top: 24px;
 		display: flex;
 		flex-wrap: wrap;
-		gap: 10px;
+		column-gap: 16px;
+		row-gap: 10px;
+	}
+	.car-features--under-image {
+		margin: 0;
+		padding: 18px 20px;
+		justify-content: center;
+		border-top: none;
+		background: transparent;
 	}
 	.car-chip {
 		display: inline-flex;
@@ -1090,22 +1113,18 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		box-shadow: 0 0 0 1px rgba(255, 190, 61, 0.3);
 	}
 	.car-visual {
-		background: var(--surface2);
-		border: 1px solid var(--border);
+		background: transparent;
+		border: none;
 		padding: 0;
 		display: block;
 		position: relative;
-		overflow: hidden;
+		overflow: visible;
 	}
 	.car-visual::before {
 		content: "";
 		position: absolute;
 		inset: 0;
-		background: radial-gradient(
-			ellipse at center,
-			rgba(232, 0, 45, 0.07) 0%,
-			transparent 70%
-		);
+		background: none;
 	}
 	.car-visual img {
 		width: 100%;
@@ -1128,16 +1147,15 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 	}
 	.format-sub {
 		margin-top: 18px;
-		font-size: clamp(18px, 2vw, 24px);
-		line-height: 1.45;
-		color: #d2d2e3;
-		max-width: 52ch;
 	}
 
 	.format-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		display: flex;
+		flex-wrap: nowrap;
 		gap: 20px;
+		overflow-x: auto;
+		padding-bottom: 6px;
+		scrollbar-width: thin;
 	}
 	.format-card {
 		background: var(--surface2);
@@ -1146,6 +1164,8 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		display: flex;
 		flex-direction: column;
 		gap: 20px;
+		flex: 1 1 0;
+		min-width: 280px;
 		transition:
 			background 0.2s,
 			border-color 0.2s;
@@ -1222,10 +1242,6 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 	}
 	.calendar-sub {
 		margin-top: 18px;
-		font-size: clamp(18px, 2.3vw, 24px);
-		line-height: 1.5;
-		color: #d2d2e3;
-		max-width: 50ch;
 	}
 
 	.cal-table {
@@ -1607,10 +1623,6 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		white-space: nowrap;
 	}
 	.join-sub {
-		font-size: clamp(18px, 2.3vw, 24px);
-		line-height: 1.7;
-		color: #d2d2e3;
-		max-width: 44ch;
 		margin-bottom: 52px;
 	}
 	.join-actions {
@@ -1632,7 +1644,12 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 		position: relative;
 		overflow: hidden;
 		isolation: isolate;
-		background: linear-gradient(120deg, #4d5ad8 0%, #5865f2 50%, #6f84ff 100%);
+		background: linear-gradient(
+			120deg,
+			#4d5ad8 0%,
+			#5865f2 50%,
+			#6f84ff 100%
+		);
 		border-color: #8ea0ff;
 		color: #ffffff;
 		box-shadow:
@@ -1779,7 +1796,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 			grid-template-columns: 1fr;
 		}
 		.format-grid {
-			grid-template-columns: 1fr 1fr;
+			gap: 20px;
 		}
 		.calendar-section .wrap {
 			max-width: 1160px;
@@ -1869,7 +1886,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 			grid-template-columns: repeat(3, 1fr);
 		}
 		.format-grid {
-			grid-template-columns: 1fr 1fr;
+			gap: 16px;
 		}
 		.format-phase {
 			font-size: 30px;
@@ -2077,7 +2094,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 			padding: 16px 20px;
 		}
 		.format-grid {
-			grid-template-columns: 1fr;
+			gap: 14px;
 		}
 		.join-section {
 			padding: 80px 0;
