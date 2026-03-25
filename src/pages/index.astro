@@ -74,14 +74,6 @@ const calendar = [
 		badge: "",
 	},
 	{
-		round: "—",
-		date: "August",
-		countryCode: "",
-		name: "Summer Break",
-		country: "",
-		badge: "break",
-	},
-	{
 		round: "07",
 		date: "Mon 29 Jun",
 		countryCode: "AT",
@@ -130,11 +122,8 @@ const format = [
 		start: "22:10 ca.",
 	},
 ];
-
-const raceRounds = calendar.filter((r) => r.badge !== "break");
-const calendarLeft = raceRounds.slice(0, 7);
-const calendarRight = raceRounds.slice(7, 12);
-const summerBreak = calendar.find((r) => r.badge === "break");
+const calendarLeft = calendar.slice(0, 5);
+const calendarRight = calendar.slice(5, 10);
 
 const prizes = [
 	{ pos: "1st", amount: "12", highlight: true },
@@ -375,8 +364,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 				<p class="label">Season 4 · 2026</p>
 				<h2 class="section-title">Calendar</h2>
 				<p class="calendar-sub section-desc">
-					Biweekly Mondays - 10 rounds - 1-month summer break in
-					August
+					Biweekly Mondays - 10 rounds - April through July
 				</p>
 			</div>
 
@@ -418,24 +406,6 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 						))
 					}
 				</div>
-
-				{
-					summerBreak && (
-						<div class="cal-break-mid">
-							<div class="cal-break-line" aria-hidden="true" />
-							<div class="cal-break-pill">
-								<span class="cal-break-icon">☀</span>
-								<span class="cal-break-title">
-									{summerBreak.name}
-								</span>
-								<span class="cal-break-date">
-									{summerBreak.date}
-								</span>
-							</div>
-							<div class="cal-break-line" aria-hidden="true" />
-						</div>
-					)
-				}
 
 				<div class="cal-column">
 					{
@@ -1245,7 +1215,7 @@ const carFeatures = ["High downforce", "Fixed setup", "Overtake mode"];
 
 	.cal-table {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 		gap: 24px;
 		align-items: start;
 	}
