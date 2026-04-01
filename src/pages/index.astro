@@ -108,28 +108,26 @@ const calendar = [
 ];
 
 const format = [
-	{ phase: "Qualifying", time: "15 min", start: "21:10 ca." },
+	{
+		phase: "Qualifying",
+		time: "15 min",
+		start: "21:00 ca.",
+	},
 	{
 		phase: "Race",
 		time: "45 min ca.",
 		distance: "150 km",
-		start: "21:25 ca.",
+		start: "21:15 ca.",
 	},
 	{
 		phase: "Inverted Grid Sprint",
 		time: "20 min ca.",
 		distance: "75 km",
-		start: "22:10 ca.",
+		start: "22:00 ca.",
 	},
 ];
 const calendarLeft = calendar.slice(0, 5);
 const calendarRight = calendar.slice(5, 10);
-
-const prizes = [
-	{ pos: "1st", amount: "12", highlight: true },
-	{ pos: "2nd", amount: "8", highlight: false },
-	{ pos: "3rd", amount: "4", highlight: false },
-];
 
 const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 ---
@@ -156,7 +154,6 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 				<a href="#car" class="nav-link">Car</a>
 				<a href="#format" class="nav-link">Format</a>
 				<a href="#calendar" class="nav-link">Calendar</a>
-				<a href="#prizes" class="nav-link">Prizes</a>
 				<ServerStatus />
 				<a href="#join" class="nav-cta">Join Season 4</a>
 			</div>
@@ -450,66 +447,6 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 		</div>
 	</section>
 
-	<!-- ══════════════════════════ PRIZES ══════════════════════════ -->
-	<section class="prizes-section" id="prizes">
-		<div class="wrap">
-			<div class="prizes-head reveal">
-				<p class="label">Championship Rewards</p>
-				<h2 class="section-title">Prize Pool</h2>
-			</div>
-
-			<div class="prizes-grid reveal">
-				{
-					prizes.map((p) => (
-						<div
-							class={`prize-card ${p.highlight ? "prize-card--gold" : ""}`}
-						>
-							<div class="prize-pos">{p.pos}</div>
-							<div class="prize-amount">€{p.amount}</div>
-						</div>
-					))
-				}
-			</div>
-
-			<div class="prize-totals reveal">
-				<div class="prize-total">
-					<span class="prize-total-label">Paid Per Race</span>
-					<span class="prize-total-value">€24</span>
-				</div>
-				<div class="prize-total prize-total--season">
-					<span class="prize-total-label">Total Paid (10 Races)</span>
-					<span class="prize-total-value">€240</span>
-				</div>
-			</div>
-
-			<div class="prize-note reveal">
-				<p class="prize-note-title">100% Prize Fund Policy</p>
-				<p class="prize-note-one-line">
-					<strong
-						>Every euro of entry fees goes straight back as race
-						rewards.</strong
-					>
-				</p>
-				<p class="prize-note-line">
-					Entry fee is €10 per driver and rewards are paid each race:
-					€12 for 1st, €8 for 2nd, and €4 for 3rd.
-				</p>
-				<p>No admin cuts. No hidden deductions.</p>
-			</div>
-
-			<div class="prize-disclaimer-box reveal" role="note">
-				<p class="prize-disclaimer-title">Disclaimer</p>
-				<p class="prize-disclaimer-text">
-					These numbers are calculated on a <b>full grid</b>.
-				</p>
-				<p class="prize-disclaimer-text">
-					If the number of drivers is lower, the regulations will
-					specify the updated prizes.
-				</p>
-			</div>
-		</div>
-	</section>
-
 	<!-- ══════════════════════════ JOIN CTA ══════════════════════════ -->
 	<section class="join-section" id="join">
 		<div class="join-bg" aria-hidden="true"></div>
@@ -522,8 +459,7 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 				</h2>
 				<p class="join-sub section-desc">
 					24 seats. Applications are reviewed to keep the grid
-					balanced and racing standards high. Entry fee secures your
-					spot and feeds the prize pool.
+					balanced and racing standards high.
 				</p>
 				<div class="join-actions">
 					<a
@@ -960,7 +896,6 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 	.about,
 	.car-section,
 	.calendar-section,
-	.prizes-section,
 	.join-section,
 	.footer {
 		margin-inline: clamp(12px, 2.4vw, 28px);
@@ -1393,166 +1328,6 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 		color: var(--grey);
 	}
 
-	/* ════════════════ PRIZES ════════════════ */
-	.prizes-section {
-		padding: 120px 0;
-		background: var(--surface);
-		border-top: 1px solid var(--border);
-	}
-	.prizes-head {
-		margin-bottom: 56px;
-	}
-
-	.prizes-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 16px;
-	}
-	.prize-card {
-		background: var(--surface2);
-		padding: 36px 24px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		transition: background 0.2s;
-		position: relative;
-		overflow: hidden;
-	}
-	.prize-card:hover {
-		background: #1c1c24;
-	}
-	.prize-card--gold {
-		background: var(--gold-dim);
-	}
-	.prize-card--gold:hover {
-		background: rgba(196, 152, 38, 0.18);
-	}
-	.prize-pos {
-		font-family: var(--font-cond);
-		font-size: 13px;
-		letter-spacing: 0.2em;
-		text-transform: uppercase;
-		color: var(--grey-mid);
-		margin-bottom: 16px;
-		width: 100%;
-	}
-	.prize-card--gold .prize-pos {
-		color: var(--gold);
-	}
-	.prize-amount {
-		font-family: var(--font-display);
-		font-size: clamp(40px, 3.5vw, 52px);
-		line-height: 1;
-		color: #ffffff;
-	}
-	.prize-card--gold .prize-amount {
-		color: var(--gold);
-	}
-
-	.prize-totals {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 16px;
-		margin-top: 20px;
-	}
-
-	.prize-total {
-		background: var(--red);
-		padding: 28px 36px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-	.prize-total--season {
-		background: linear-gradient(110deg, #0f5e8a 0%, #19a7ce 100%);
-	}
-	.prize-total-label {
-		font-family: var(--font-cond);
-		font-size: 22px;
-		font-weight: 700;
-		letter-spacing: 0.25em;
-		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.85);
-	}
-	.prize-total-value {
-		font-family: var(--font-display);
-		font-size: 48px;
-		color: #fff;
-	}
-
-	.prize-note {
-		margin-top: 24px;
-		padding: 28px 32px;
-		background: linear-gradient(
-			110deg,
-			rgba(232, 0, 45, 0.16),
-			rgba(232, 0, 45, 0.04)
-		);
-		border: 1px solid var(--red-line);
-	}
-	.prize-note .prize-note-title {
-		font-family: var(--font-cond);
-		font-size: 22px;
-		font-weight: 700;
-		letter-spacing: 0.24em;
-		text-transform: uppercase;
-		color: #61e58a;
-		margin-bottom: 12px;
-	}
-	.prize-note p {
-		font-size: clamp(18px, 2.3vw, 24px);
-		line-height: 1.7;
-		color: #d2d2e3;
-		max-width: 44ch;
-	}
-	.prize-note .prize-note-one-line {
-		max-width: none;
-		white-space: nowrap;
-	}
-	.prize-note .prize-note-line {
-		white-space: normal;
-		max-width: none;
-	}
-	.prize-note strong {
-		color: #ffffff;
-		font-weight: 700;
-	}
-
-	.prize-disclaimer-box {
-		margin-top: 24px;
-		padding: 24px 28px;
-		background: linear-gradient(
-			100deg,
-			rgba(241, 207, 122, 0.2) 0%,
-			rgba(241, 207, 122, 0.08) 100%
-		);
-		border: 2px solid rgba(241, 207, 122, 0.9);
-		box-shadow:
-			0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-			0 10px 24px rgba(0, 0, 0, 0.3);
-	}
-	.prize-disclaimer-title {
-		font-family: var(--font-cond);
-		font-size: 20px;
-		font-weight: 700;
-		letter-spacing: 0.2em;
-		text-transform: uppercase;
-		color: #ffe5a7;
-		display: inline-block;
-		padding-bottom: 4px;
-		border-bottom: 2px solid #ffe5a7;
-		margin: 0 0 10px;
-	}
-	.prize-disclaimer-text {
-		font-size: clamp(17px, 2vw, 21px);
-		font-size: 22px;
-		line-height: 1.55;
-		color: #fff4d0;
-		max-width: none;
-		margin: 0;
-	}
-
 	/* ════════════════ JOIN CTA ════════════════ */
 	.join-section {
 		position: relative;
@@ -1795,12 +1570,6 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 			min-width: 0;
 			padding: 10px 18px;
 		}
-		.prizes-grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-		.prize-totals {
-			grid-template-columns: 1fr;
-		}
 	}
 
 	@media (max-width: 768px) {
@@ -1873,7 +1642,6 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 			align-items: center;
 		}
 		.calendar-section,
-		.prizes-section,
 		.join-section,
 		.footer {
 			margin-inline: 10px;
@@ -1896,9 +1664,6 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 		.cal-name,
 		.cal-country {
 			overflow-wrap: anywhere;
-		}
-		.prizes-grid {
-			grid-template-columns: repeat(2, 1fr);
 		}
 		.footer-inner {
 			flex-direction: column;
@@ -2013,7 +1778,6 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 		.car-section,
 		.format-section,
 		.calendar-section,
-		.prizes-section,
 		.join-section {
 			padding: 80px 0;
 		}
@@ -2025,32 +1789,6 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 			grid-column: 1 / -1;
 			justify-self: flex-start;
 			margin-top: 8px;
-		}
-		.prize-total {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 8px;
-			padding: 22px 18px;
-		}
-		.prize-total-label {
-			font-size: 16px;
-			letter-spacing: 0.16em;
-		}
-		.prize-total-value {
-			font-size: 42px;
-		}
-		.prize-note {
-			padding: 22px 18px;
-		}
-		.prize-disclaimer-box {
-			padding: 20px 18px;
-		}
-		.prize-disclaimer-title {
-			font-size: 13px;
-			letter-spacing: 0.16em;
-		}
-		.prizes-grid {
-			grid-template-columns: 1fr 1fr;
 		}
 		.join-actions {
 			flex-direction: column;
