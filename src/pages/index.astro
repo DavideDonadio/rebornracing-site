@@ -5,14 +5,14 @@ import sfImage from "../assets/imgs/rss3_dark_3.png";
 
 const title = "Reborn Racing";
 const description =
-	"Reborn Racing — Season 4 launches April 27th. 24 drivers, 10 circuits, and per-race rewards for the podium. The most competitive season yet.";
+	"Reborn Racing — Season 5 launches September 14th. 24 drivers, 10 circuits. The most competitive season yet.";
 
 const stats = [
-	{ value: "30+", label: "Races Hosted" },
+	{ value: "55+", label: "Races Hosted" },
 	{ value: "75+", label: "Registered Drivers" },
-	{ value: "15+", label: "Podium Finishers" },
-	{ value: "~30", label: "Reports Closed" },
-	{ value: "3", label: "Seasons Completed" },
+	{ value: "25+", label: "Podium Finishers" },
+	{ value: "35+", label: "Reports Closed" },
+	{ value: "4", label: "Seasons Completed" },
 ];
 
 const aboutFacts = [
@@ -27,31 +27,31 @@ const getFlagUrl = (countryCode: string) =>
 const calendar = [
 	{
 		round: "01",
-		date: "Mon 27 Apr",
-		countryCode: "BH",
-		name: "Bahrain International Circuit",
-		country: "Sakhir, Bahrain",
+		date: "Mon 14 Sep",
+		countryCode: "AT",
+		name: "Red Bull Ring",
+		country: "Spielberg, Austria",
 		badge: "opener",
 	},
 	{
 		round: "02",
-		date: "Mon 04 May",
-		countryCode: "IT",
-		name: "Autodromo Nazionale Monza",
-		country: "Monza, Italy",
+		date: "Mon 21 Sep",
+		countryCode: "CA",
+		name: "Circuit Gilles-Villeneuve",
+		country: "Montreal, Canada",
 		badge: "",
 	},
 	{
 		round: "03",
-		date: "Mon 18 May",
-		countryCode: "AU",
-		name: "Phillip Island Grand Prix Circuit",
-		country: "Phillip Island, Australia",
+		date: "Mon 05 Oct",
+		countryCode: "GB",
+		name: "Donington Park",
+		country: "Leicestershire, UK",
 		badge: "",
 	},
 	{
 		round: "04",
-		date: "Mon 25 May",
+		date: "Mon 12 Oct",
 		countryCode: "GB",
 		name: "Silverstone Circuit",
 		country: "Northamptonshire, UK",
@@ -59,77 +59,80 @@ const calendar = [
 	},
 	{
 		round: "05",
-		date: "Mon 08 Jun",
-		countryCode: "JP",
-		name: "Okayama International Circuit",
-		country: "Okayama, Japan",
+		date: "Mon 26 Oct",
+		countryCode: "US",
+		name: "Watkins Glen",
+		country: "New York, USA",
 		badge: "",
 	},
 	{
 		round: "06",
-		date: "Mon 15 Jun",
-		countryCode: "BE",
-		name: "Circuit de Spa-Francorchamps",
-		country: "Stavelot, Belgium",
+		date: "Mon 02 Nov",
+		countryCode: "US",
+		name: "Laguna Seca",
+		country: "California, USA",
 		badge: "",
 	},
 	{
 		round: "07",
-		date: "Mon 29 Jun",
-		countryCode: "MY",
-		name: "Sepang International Circuit",
-		country: "Sepang, Malaysia",
+		date: "Mon 16 Nov",
+		countryCode: "AR",
+		name: "Termas de Río Hondo",
+		country: "Santiago del Estero, Argentina",
 		badge: "",
 	},
 	{
 		round: "08",
-		date: "Mon 06 Jul",
-		countryCode: "AT",
-		name: "Red Bull Ring",
-		country: "Spielberg, Austria",
+		date: "Mon 23 Nov",
+		countryCode: "US",
+		name: "Road Atlanta",
+		country: "Braselton, USA",
 		badge: "",
 	},
 	{
 		round: "09",
-		date: "Mon 20 Jul",
-		countryCode: "PT",
-		name: "Autodromo Internacional do Algarve",
-		country: "Portimao, Portugal",
+		date: "Mon 07 Dec",
+		countryCode: "JP",
+		name: "Mobility Resort Motegi",
+		country: "Tochigi Prefecture, Japan",
 		badge: "",
 	},
 	{
 		round: "10",
-		date: "Mon 27 Jul",
+		date: "Mon 14 Dec",
 		countryCode: "BR",
-		name: "Autodromo Jose Carlos Pace",
-		country: "Interlagos, Brazil",
+		name: "Autódromo de Interlagos",
+		country: "São Paulo, Brazil",
 		badge: "finale",
 	},
 ];
 
 const format = [
 	{
+		phase: "Briefing",
+		time: "5 min",
+		start: "18:55 UTC",
+	},
+	{
 		phase: "Qualifying",
 		time: "15 min",
-		start: "21:00 ca.",
+		start: "19:00 UTC",
 	},
 	{
 		phase: "Race",
-		time: "45 min ca.",
-		distance: "150 km",
-		start: "21:15 ca.",
+		time: "50 min",
+		start: "19:20 UTC",
 	},
 	{
-		phase: "Inverted Grid Sprint",
-		time: "20 min ca.",
-		distance: "75 km",
-		start: "22:00 ca.",
+		phase: "Sprint Race",
+		time: "25 min",
+		start: "20:15 UTC",
 	},
 ];
 const calendarLeft = calendar.slice(0, 5);
 const calendarRight = calendar.slice(5, 10);
 
-const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
+const carFeatures = ["TBA", "Coming Soon", "Fixed setup"];
 ---
 
 <Layout title={title} description={description}>
@@ -155,7 +158,7 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 				<a href="#format" class="nav-link">Format</a>
 				<a href="#calendar" class="nav-link">Calendar</a>
 				<ServerStatus />
-				<a href="#join" class="nav-cta">Join Season 4</a>
+				<a href="#join" class="nav-cta">Join Season 5</a>
 			</div>
 		</div>
 	</nav>
@@ -171,7 +174,7 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 
 		<div class="hero-content wrap">
 			<p class="hero-eyebrow label">
-				Assetto Corsa · Sim Racing League · Season 4
+				Assetto Corsa · Sim Racing League · Season 5
 			</p>
 
 			<h1 class="hero-title">
@@ -188,8 +191,8 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 					>
 				</p>
 				<p class="hero-launch-line">
-					<span class="hero-launch-label">Season 4 Launches</span>
-					<span class="hero-launch-date">April 27th</span>
+					<span class="hero-launch-label">Season 5 Launches</span>
+					<span class="hero-launch-date">September 14th</span>
 				</p>
 			</div>
 
@@ -259,18 +262,17 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 	<section class="car-section" id="car">
 		<div class="wrap car-inner">
 			<div class="car-info reveal">
-				<p class="label car-tag">Official Car · Season 4</p>
-				<h2 class="car-name">Formula RSS 3 2026</h2>
+				<p class="label car-tag">Official Car · Season 5</p>
+				<h2 class="car-name">Coming Soon</h2>
 				<p class="car-desc section-desc">
-					Razor-sharp through fast corners, alive under braking, and
-					built for drivers who can balance aggression with precision.
+					The official car and regulations for Season 5 will be announced soon. Stay tuned in our Discord for the reveal.
 				</p>
 			</div>
 
 			<div class="car-visual reveal">
 				<img
 					src={sfImage.src}
-					alt="Ferrari SF race car"
+					alt="Season 5 race car"
 					loading="lazy"
 					decoding="async"
 				/>
@@ -281,7 +283,7 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 					{
 						carFeatures.map((feature) => (
 							<span
-								class={`car-chip ${feature === "Fixed setup" ? "car-chip--highlight" : ""}`}
+								class={`car-chip ${feature === "Coming Soon" ? "car-chip--highlight" : ""}`}
 							>
 								{feature}
 							</span>
@@ -299,8 +301,7 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 				<p class="label">Championship Structure</p>
 				<h2 class="section-title">Format</h2>
 				<p class="format-sub section-desc">
-					Single qualifying session, then Race followed by Inverted
-					Grid Sprint.
+					Briefing and single qualifying session, then Race followed by Reverse Grid Sprint Race.
 				</p>
 			</div>
 
@@ -325,16 +326,6 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 											{item.time}
 										</span>
 									</div>
-									{item.distance && (
-										<div class="format-detail">
-											<span class="detail-label">
-												Distance
-											</span>
-											<span class="detail-value">
-												{item.distance}
-											</span>
-										</div>
-									)}
 									{item.start !== "—" && (
 										<div class="format-detail">
 											<span class="detail-label">
@@ -358,10 +349,10 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 	<section class="calendar-section" id="calendar">
 		<div class="wrap">
 			<div class="calendar-head reveal">
-				<p class="label">Season 4 · 2026</p>
+				<p class="label">Season 5 · 2026</p>
 				<h2 class="section-title">Calendar</h2>
 				<p class="calendar-sub section-desc">
-					Biweekly Mondays - 10 rounds - April through July
+					10 rounds · September through December
 				</p>
 			</div>
 
@@ -452,7 +443,7 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 		<div class="join-bg" aria-hidden="true"></div>
 		<div class="wrap join-inner">
 			<div class="reveal">
-				<p class="label">Season 4 · Open Registration</p>
+				<p class="label">Season 5 · Open Registration</p>
 				<h2 class="join-title">
 					<span class="join-title-line">Bring your pace</span>
 					<span class="join-title-line">Earn your place.</span>
@@ -463,7 +454,7 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 				</p>
 				<div class="join-actions">
 					<a
-						href="https://discord.com/invite/gUXfjbfSa2"
+						href="https://rebornracing.com/discord"
 						class="btn-ghost discord-cta"
 						target="_blank"
 						rel="noopener noreferrer">Join our Discord</a
@@ -479,7 +470,7 @@ const carFeatures = ["High downforce", "Fixed setup", "DRS MODE"];
 			<div class="footer-brand">
 				Reborn <span>Racing</span>
 			</div>
-			<p class="footer-meta">Season 4 · 2026 · Assetto Corsa League</p>
+			<p class="footer-meta">Season 5 · 2026 · Assetto Corsa League</p>
 		</div>
 	</footer>
 </Layout>
