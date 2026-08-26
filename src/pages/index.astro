@@ -109,30 +109,25 @@ const calendar = [
 
 const format = [
 	{
-		phase: "Briefing",
-		time: "5 min",
-		start: "18:55 UTC",
-	},
-	{
 		phase: "Qualifying",
 		time: "15 min",
 		start: "19:00 UTC",
 	},
 	{
 		phase: "Race",
-		time: "50 min",
+		time: "50 min ca.",
 		start: "19:20 UTC",
 	},
 	{
-		phase: "Sprint Race",
-		time: "25 min",
+		phase: "Inverted Grid Sprint",
+		time: "25 min ca.",
 		start: "20:15 UTC",
 	},
 ];
 const calendarLeft = calendar.slice(0, 5);
 const calendarRight = calendar.slice(5, 10);
 
-const carFeatures = ["TBA", "Coming Soon", "Fixed setup"];
+const carFeatures = ["TBA", "TBA", "TBA"];
 ---
 
 <Layout title={title} description={description}>
@@ -281,9 +276,9 @@ const carFeatures = ["TBA", "Coming Soon", "Fixed setup"];
 					aria-label="Car key features"
 				>
 					{
-						carFeatures.map((feature) => (
+						carFeatures.map((feature, idx) => (
 							<span
-								class={`car-chip ${feature === "Coming Soon" ? "car-chip--highlight" : ""}`}
+								class={`car-chip ${idx === 1 ? "car-chip--highlight" : ""}`}
 							>
 								{feature}
 							</span>
@@ -301,7 +296,8 @@ const carFeatures = ["TBA", "Coming Soon", "Fixed setup"];
 				<p class="label">Championship Structure</p>
 				<h2 class="section-title">Format</h2>
 				<p class="format-sub section-desc">
-					Briefing and single qualifying session, then Race followed by Reverse Grid Sprint Race.
+					Single qualifying session, then Race followed by Inverted
+					Grid Sprint.
 				</p>
 			</div>
 
@@ -352,7 +348,7 @@ const carFeatures = ["TBA", "Coming Soon", "Fixed setup"];
 				<p class="label">Season 5 · 2026</p>
 				<h2 class="section-title">Calendar</h2>
 				<p class="calendar-sub section-desc">
-					10 rounds · September through December
+					Mondays - 10 rounds - September through December
 				</p>
 			</div>
 
