@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ServerStatus from "../components/ServerStatus.astro";
-import sfImage from "../assets/imgs/rss3_dark_3.png";
+import carImage from "../assets/imgs/formula_rss_4.jpeg";
 
 const title = "Reborn Racing";
 const description =
@@ -127,7 +127,7 @@ const format = [
 const calendarLeft = calendar.slice(0, 5);
 const calendarRight = calendar.slice(5, 10);
 
-const carFeatures = ["TBA", "TBA", "TBA"];
+const carFeatures = ["Formula 4", "Fixed Setup", "High Downforce", "Open Wheel"];
 ---
 
 <Layout title={title} description={description}>
@@ -258,16 +258,16 @@ const carFeatures = ["TBA", "TBA", "TBA"];
 		<div class="wrap car-inner">
 			<div class="car-info reveal">
 				<p class="label car-tag">Official Car · Season 5</p>
-				<h2 class="car-name">Coming Soon</h2>
+				<h2 class="car-name">Formula RSS 4</h2>
 				<p class="car-desc section-desc">
-					The official car and regulations for Season 5 will be announced soon. Stay tuned in our Discord for the reveal.
+					Lightweight, nimble, and highly responsive. The Formula RSS 4 delivers pure, wheel-to-wheel open-wheel competition with razor-sharp handling and accessible limits for close racing across every circuit.
 				</p>
 			</div>
 
 			<div class="car-visual reveal">
 				<img
-					src={sfImage.src}
-					alt="Season 5 race car"
+					src={carImage.src}
+					alt="Formula RSS 4 race car"
 					loading="lazy"
 					decoding="async"
 				/>
@@ -276,9 +276,9 @@ const carFeatures = ["TBA", "TBA", "TBA"];
 					aria-label="Car key features"
 				>
 					{
-						carFeatures.map((feature, idx) => (
+						carFeatures.map((feature) => (
 							<span
-								class={`car-chip ${idx === 1 ? "car-chip--highlight" : ""}`}
+								class={`car-chip ${feature === "Fixed Setup" ? "car-chip--highlight" : ""}`}
 							>
 								{feature}
 							</span>
